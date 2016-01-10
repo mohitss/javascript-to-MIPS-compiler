@@ -180,9 +180,25 @@ class MyLexer(object):
 		t.type = self.reserved.get(t.value,'IDENTIFIER')	# Check for reserved words
 		return t
 
-	def t_NUMBER(self,t):
-		r''
+"""
+	You have to look at the hexadecimal , octal and all type of numbers there 
+	are in javascript and make the regex for that. Doing that individually you would be 
+	better.
+	Also consider
+	x = 5-10;  //--- eq 1
+	y = -10;   //--- eq 2
+	If we are going to include "-" in the regex of the number then we can get problem in
+	parsing the 1st type of equations. If not then we will have problems in lexing the 
+	expressions of the second type
+
+	And Also print the values in the format desired by sir
+	def t_NUMBER(self,t):           
+		r'([0-9]+[\.[0-9]+]?)|()'
 		return t
+
+
+
+"""
 
 	def t_STRING(self,t):
 		r'(\'[^\']*\')|(\"[^\"]*\")'
