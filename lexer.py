@@ -1,4 +1,5 @@
 import ply.lex as lex
+import sys
 
 class MyLexer(object):
 	dictionary = {}
@@ -124,7 +125,9 @@ class MyLexer(object):
 	   'DOT',   
 	   'COMMENT',
 	   'NEWLINE',
-
+	   'EXPO_NUMBER',
+	   'OCTAL_NUMBER',
+	   'HEXADECIMAL',
 	)
 	tokens = list(tokens) + list(reserved.values())
 
@@ -172,7 +175,7 @@ class MyLexer(object):
 	t_DOT       =	r'\.'   
 	t_NEWLINE	=	r'\n+'
 	def t_COMMENT(self,t):
-		r'(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/[\w\s\']*)|(\<![\-\-\s\w\>\/]*\>)'
+		r'(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/.*\n)|(\<![\-\-\s\w\>\/]*\>)'
 		pass
 
 	def t_IDENTIFIER(self,t):
@@ -180,25 +183,26 @@ class MyLexer(object):
 		t.type = self.reserved.get(t.value,'IDENTIFIER')	# Check for reserved words
 		return t
 
-"""
-	You have to look at the hexadecimal , octal and all type of numbers there 
-	are in javascript and make the regex for that. Doing that individually you would be 
-	better.
-	Also consider
-	x = 5-10;  //--- eq 1
-	y = -10;   //--- eq 2
-	If we are going to include "-" in the regex of the number then we can get problem in
-	parsing the 1st type of equations. If not then we will have problems in lexing the 
-	expressions of the second type
 
-	And Also print the values in the format desired by sir
+	def t_error(self,t):
+		print("Illegal character '%s'" % t.value[0])
+		t.lexer.skip(1)
+
 	def t_NUMBER(self,t):           
-		r'([0-9]+[\.[0-9]+]?)|()'
+		r'([1-9][0-9]*(\.[0-9]+)?)|0+'
 		return t
 
+	def t_EXPO_NUMBER(self,t):
+		r'[1-9][0-9]*(\.[0-9]+)?e[+|-]?[0-9]+(\.[0-9]+)?'
+		return t
 
+	def t_OCTAL_NUMBER(self,t):
+		r'0[0-7]+'
+		return t
 
-"""
+	def t_HEXADECIMAL(self,t):
+		r'0[x|X][0-9a-fA-F]*'
+		return t
 
 	def t_STRING(self,t):
 		r'(\'[^\']*\')|(\"[^\"]*\")'
@@ -223,8 +227,14 @@ class MyLexer(object):
 				print keys,self.dictionary[keys]
 
 # Build the lexer and try it out
-m = MyLexer()
-m.build()		   # Build the lexer
-m.test("var x = 'sdsd' \n\n y = 'DSsd' " )	 # Test it
 
-
+if __name__ == "__main__":
+	m = MyLexer()
+	m.build()
+	file_name = sys.argv[1]		   # Build the lexer
+	try:
+		myfile = open(file_name,'r').read()
+		m.test(myfile)
+	except:
+		print "Error"
+	
