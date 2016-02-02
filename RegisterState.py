@@ -5,8 +5,9 @@ class RegisterState:
         self.ST = SymbolTable
         self.RegisterReset()
 
+    #Currently assuming only one fuction main
     def appendCode(self, line):
-        self.assemblyCode.append(line)
+        self.assemblyCode['main'].append(line)
 
     def RegisterReset(self):
         self.registerInUse = []                                       #Reg in use is empty
@@ -29,7 +30,8 @@ class RegisterState:
                 # '$s7' : None,
                 }
         self.freeRegisters = [ reg for reg in self.Registers.keys() ] #Set all the registers to free
-        
+    
+    #As currently we have no function call offset would be zero. Offset (offset in stack)    
     def LoadAddress(self, variable):
         (level, offset) = self.ST.Address[variable]['memory']
         self.appendCode(['li', '$s6', 4*level, ''])
