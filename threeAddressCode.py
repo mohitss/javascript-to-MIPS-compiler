@@ -1,41 +1,44 @@
 import sys
 
 # We store the 3 Address Code as list of lists:
-# a[0] - Line Number
+# a[1] - Line Number
 # a[1] - InstrType typ; // assign, goto...
 # a[2] - SymtabEntry *in1;
 # a[3] - SymtabEntry *in2
 # a[4] - SymtabEntry *out;
 # a[5] - int target; // jump target
 # a[6] - Operator op 
-def codeGenerator(inFile, outFile):
-	i=0
+def codeGenerator(inFile):
+	i=1
 	TAC = {}
-	with openfile(filename,'r') as infile:
+	with open(filename,'r') as infile:
 		for line in infile:
-			if(line.rsplit(',')[0]=='goto'||line.rsplit(',')[0]=='call'||line.rsplit(',')[0]=='label'):
-				TAC.append(i,line.rsplit(',')[0],'','','','',line.rsplit(',')[1])
-			elif(line.rsplit(',')[0] == 'ret'):
-				TAC.append(i,line.rsplit(',')[0],'','','','','')
-			elif(line.rsplit(',')[0]=='='):
-				TAC.append(i,'assign',line.rsplit(',')[2],'',line.rsplit(',')[1],'','')
-			elif(line.rsplit(,)[0]=='+'||line.rsplit(',')[0]=='-'||line.rsplit(',')[0]=='*'||line.rsplit(',')[0]=='/'):
-				TAC.append(i,'assign',line.rsplit(',')[2],line.rsplit(',')[3],line.rsplit(',')[1],'',line.rsplit(',')[0])
-			elif(line.rsplit(',')[0]=='ifgoto'):
-				TAC.append(i,line.rsplit(',')[0],line.rsplit(',')[2],line.rsplit(',')[3],'',line.rsplit(',')[4],line.rsplit(',')[1])
+			print line.rsplit(',')[1].strip()
+			if(line.rsplit(',')[1].strip()=='goto' or line.rsplit(',')[1].strip()=='call' or line.rsplit(',')[1].strip()=='label'):
+				TAC[i] = [line.rsplit(',')[1].strip(),'','','','',line.rsplit(',')[2].strip()]
+			elif(line.rsplit(',')[1].strip() == 'ret'):
+				TAC[i] = [line.rsplit(',')[1].strip(),'','','','','']
+			elif(line.rsplit(',')[1].strip()=='='):
+				TAC[i] = ['assign',line.rsplit(',')[2].strip(),'',line.rsplit(',')[3].strip(),'','']
+			elif(line.rsplit(',')[1].strip()=='+' or line.rsplit(',')[1].strip()=='-' or line.rsplit(',')[1].strip()=='*' or line.rsplit(',')[1].strip()=='/'):
+				TAC[i] = ['assign',line.rsplit(',')[3].strip(),line.rsplit(',')[4].strip(),line.rsplit(',')[2].strip(),'',line.rsplit(',')[1].strip()]
+			elif(line.rsplit(',')[1].strip()=='ifgoto'):
+				TAC[i] = [line.rsplit(',')[1].strip(),line.rsplit(',')[2].strip(),line.rsplit(',')[3].strip(),'',line.rsplit(',')[4].strip(),line.rsplit(',')[5].strip()]
+			elif(line.rsplit(',')[1].strip()=='print'):
+				TAC[i] = [line.rsplit(',')[1].strip(),line.rsplit(',')[2].strip(),'','','','']
+
 
 			i = i+1
-	printTAC(TAC, outFile)
+	printTAC(TAC)
 
-def printTAC(TAC, filename):
-	with openfile(filename,'w') as outfile:
-		for li in TAC:
-			print(li[0]+' '+li[1]+' '+li[2]+' '+li[3]+' '+li[4]+' '+li[5]+' '+li[6]+'\n')
-
+def printTAC(TAC):
+	with open('out','w') as outfile:
+		print TAC
+		print '\n'
 
 
 if __name__ == '__main__':
 	filename = sys.argv[1]
-	codeGenerator(filename, out)
+	codeGenerator(filename)
 
 
