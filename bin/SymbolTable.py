@@ -14,9 +14,8 @@ class SymbolTable:
 		self.scope = ['main']
 		self.temp = 0
 
-	def createTemp(self, variable = '', memlocation = ''):
+	def createTemp(self, variable = '', memlocation = '', loadFromMemory = False):
 		tempReg = $t+str(self.temp)
 		self.temp += 1
-		self.Address[tempReg] = {'memory' : melocation, 'register': '', 'dirty': False, 'variable' = variable}
+		self.Address[tempReg] = {'memory' : memlocation, 'register': '', 'store': loadFromMemory, 'dirty': False, 'variable' = variable}
 		return tempReg
- 

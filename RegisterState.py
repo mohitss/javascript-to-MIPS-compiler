@@ -33,6 +33,7 @@ class RegisterState:
     
     #As currently we have no function call offset would be zero. Offset (offset in stack)    
     def LoadAddress(self, variable):
+        #Memory address to be stored as a tuple of level and offset
         (level, offset) = self.ST.Address[variable]['memory']
         self.appendCode(['li', '$s6', 4*level, ''])
         self.appendCode(['la', '$s5', 'arrayReg', ''])          
