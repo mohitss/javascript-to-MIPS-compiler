@@ -2,6 +2,25 @@ import sys
 import regalloc
 
 register_handler = None
+labels=[]
+
+
+def findlabels(filename):
+	f = open(filename,'r')
+	LINE_NO = 0
+	labels.append('1')
+	for line in f.readlines():
+		LINE_NO += 1
+		line = line.strip()
+		tac = line.split(",")
+		if tac[0] == "goto":
+			labels.append(tac[1])
+			labels.append(str(LINE_NO+1))
+		elif tac[0] == "ifgoto":
+			labels.append(tac[5])
+			labels.append(str(LINE_NO+1))
+	f.close()
+
 
 def codegen(filename):
 	f = open(filename,'r')
@@ -10,7 +29,8 @@ def codegen(filename):
 	LINE_NO = 0
 	for line in f.readlines():
 		LINE_NO += 1
-		assemblycode.append("LABEL_"+str(LINE_NO)+":")
+		if (str(LINE_NO) in labels):
+			assemblycode.append("LABEL_"+str(LINE_NO)+":")
 		line = line.strip()
 		tac = line.split(",")
 
@@ -243,7 +263,9 @@ def codegen(filename):
 
 if __name__ == '__main__':
 	filename = sys.argv[1]
+	findlabels(filename)
 	register_handler = regalloc.regalloc()
 	assemblycode = codegen(filename)
+
 	for line in assemblycode:
 		print line
