@@ -25,9 +25,9 @@ class RegisterState:
                 '$s2' : None,
                 '$s3' : None,
                 '$s4' : None, 
-                # '$s5' : None, #Removed to be used in the functions
-                # '$s6' : None,
-                # '$s7' : None,
+                '$s5' : None, #Removed to be used in the functions
+                '$s6' : None,
+                '$s7' : None,
                 }
         self.freeRegisters = [ reg for reg in self.Registers.keys() ] #Set all the registers to free
     

@@ -1,4 +1,5 @@
 import sys
+import RegisterState
 
 # We store the 3 Address Code as list of lists:
 # a[1] - Line Number
