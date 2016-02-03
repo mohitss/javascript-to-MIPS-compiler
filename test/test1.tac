@@ -1,6 +1,5 @@
-=,a,c
-*,a,a,b
-/,a,a,c
-%,d,b,c
+>>,a,b,c
+print_char,'a'
 print_int,5
+read_int,a
 exit
