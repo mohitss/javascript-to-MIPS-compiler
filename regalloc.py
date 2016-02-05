@@ -24,7 +24,12 @@ class regalloc:
 		self.variables = {}
 
 	def getreg(self,variable):
-		if variable in self.Registers.values():
+		if variable == " " and len(self.freeRegisters) > 0:
+			reg = self.freeRegisters[0]
+			self.freeRegisters.remove(reg)
+			self.registerInUse.append(reg)
+			return (reg,)
+		elif variable in self.Registers.values():
 			for key,value in self.Registers.iteritems():
 				if value == variable:
 					return (key,)

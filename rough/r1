@@ -2,35 +2,15 @@ import sys
 import regalloc
 
 register_handler = None
-labels=[]
-
-def findlabels(filename):
-	f = open(filename,'r')
-	LINE_NO = 0
-	labels.append('1')
-	for line in f.readlines():
-		LINE_NO += 1
-		line = line.strip()
-		tac = line.split(",")
-		if tac[0] == "goto":
-			labels.append(tac[1])
-			labels.append(str(LINE_NO+1))
-		elif tac[0] == "ifgoto":
-			labels.append(tac[4])
-			labels.append(str(LINE_NO+1))
-	f.close()
-
 
 def codegen(filename):
 	f = open(filename,'r')
 	assemblycode = []
-	assemblycode.append(".data")
 	data = []
 	LINE_NO = 0
 	for line in f.readlines():
 		LINE_NO += 1
-		if (str(LINE_NO) in labels):
-			assemblycode.append("LABEL_"+str(LINE_NO)+":")
+		assemblycode.append("LABEL_"+str(LINE_NO)+":")
 		line = line.strip()
 		tac = line.split(",")
 
@@ -344,116 +324,12 @@ def codegen(filename):
 				assemblycode.append(ret_val[1])
 				reg3 = ret_val[0]
 			assemblycode.append("\tand "+reg1+","+reg2+","+reg3)
-
-		#goto ~
-		elif tac[0] == "goto":
-			label_to_jump = tac[1]
-			assemblycode.append("\tj "+label_to_jump)
-
-		#function ~
-		elif tac[0] == "fun_label":
-			function_label = tac[1]
-			assemblycode.append(function_label+":")
-
-		#return ~
-		elif tac[0] == "ret":
-
-			assemblycode.append("\tjr $ra")
-
-		#call function ~
-		elif tac[0] == "call":
-			#save all the registers
-			for key,value in register_handler.Registers.iteritems():
-				assemblycode.append("\taddi $sp,$sp,-4")
-				assemblycode.append("\tsw "+key+",($sp)")
-			assemblycode.append("\taddi $sp,$sp,-4")
-			assemblycode.append("\tsw $ra,($sp)")
-
-			#call the function
-			assemblycode.append("\tjal "+tac[1])
-
-			#restore all the registers
-			assemblycode.append("\tlw $ra,($sp)")
-			assemblycode.append("\taddi $sp,$sp,4")
-			keys = []
-			for key,value in register_handler.Registers.iteritems():
-				keys.append(key)
-			for k in range(len(keys)-1,-1,-1):
-				assemblycode.append("\tlw "+keys[k]+",($sp)")
-				assemblycode.append("\taddi $sp,$sp,4")
-
-		#data allocation ~
-		elif tac[0] == "data":
-			if tac[2] == "int":
-				assemblycode.append("\t"+tac[1]+":\t.word\t"+tac[3])
-			elif tac[2] == "array":
-				assemblycode.append("\t"+tac[1]+":\t.space\t"+str(4*int(tac[4])))
-
-		#main label ~
-		elif tac[0] == "main":
-
-			assemblycode.append(".text\nmain:")
-
-		#label label ~
-		elif tac[0] == "label":
-
-			assemblycode.append(tac[1]+":")
-
-		#condition if goto ~
-		elif tac[0] == "ifgoto":
-			label_to_jump = tac[4]
-			reg1 = None
-			reg2 = None
-			ret_val = register_handler.getreg(tac[2])
-			if len(ret_val)==1:
-				reg1 = ret_val[0]
-			else:
-				assemblycode.append(ret_val[1])
-				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
-			if len(ret_val)==1:
-				reg2 = ret_val[0]
-			else:
-				assemblycode.append(ret_val[1])
-				reg2 = ret_val[0]
-			#if equal !
-			if tac[1] == "beq":
-				assemblycode.append("\tbeq "+reg1+","+reg2+","+label_to_jump)
-			elif tac[1] == "bge":
-				assemblycode.append("\tbge "+reg1+","+reg2+","+label_to_jump)
-			elif tac[1] == "bgt":
-				assemblycode.append("\tbgt "+reg1+","+reg2+","+label_to_jump)
-			elif tac[1] == "ble":
-				assemblycode.append("\tble "+reg1+","+reg2+","+label_to_jump)
-			elif tac[1] == "blt":
-				assemblycode.append("\tblt "+reg1+","+reg2+","+label_to_jump)
-			elif tac[1] == "bne":
-				assemblycode.append("\tbne "+reg1+","+reg2+","+label_to_jump)
-
-		#array access and modification
-		elif tac[0]=="array":
-			if tac[3] == "set":
-				reg1 = register_handler.getreg(" ")[0]
-				assemblycode.append("\tla "+reg1+","+tac[1])
-				ret_val = register_handler.getreg(tac[4])
-				if len(ret_val) == 1:
-					reg2 = ret_val[0]
-				else:
-					assemblycode.append(ret_val[1])
-					reg2 = ret_val[0]
-				assemblycode.append("\tsw "+reg2+","+str(4*int(tac[2]))+"("+reg1+")")
-			elif tac[3] == "get":
-				reg1 = register_handler.getreg(" ")[0]
-				reg2 = register_handler.getreg(" ")[0]
-				assemblycode.append("\tla "+reg1+","+tac[1])
-				assemblycode.append("\tlw "+reg2+","+str(4*int(tac[2]))+"("+reg1+")")
-				assemblycode.append("\tsw "+reg2+","+tac[4])
+		
 	f.close()
 	return assemblycode
 
 if __name__ == '__main__':
 	filename = sys.argv[1]
-	# findlabels(filename)
 	register_handler = regalloc.regalloc()
 	assemblycode = codegen(filename)
 	for line in assemblycode:
