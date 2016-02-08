@@ -1,34 +1,82 @@
 import sys
 import regalloc
+import json
 
 register_handler = None
 labels=[]
+labelsss=[]
+dictionary={}
+regalloc.dictionary=dictionary
+current_basic_block=1
+filename=""
 
-def findlabels(filename):
+
+def findlabels():
 	f = open(filename,'r')
 	LINE_NO = 0
 	labels.append('1')
+	labelsss.append(('1',1))
 	for line in f.readlines():
 		LINE_NO += 1
 		line = line.strip()
 		tac = line.split(",")
 		if tac[0] == "goto":
-			labels.append(tac[1])
+			if tac[1].isdigit():
+				labels.append(tac[1])
+				labelsss.append((tac[1],int(tac[1])))
 			labels.append(str(LINE_NO+1))
+			labelsss.append((str(LINE_NO+1),LINE_NO+1))
+
+		elif tac[0] == "call":
+			if tac[1].isdigit():
+				labels.append(tac[1])
+				labelsss.append((tac[1],int(tac[1])))
+			labels.append(str(LINE_NO+1))
+			labelsss.append((str(LINE_NO+1),LINE_NO+1))
+
 		elif tac[0] == "ifgoto":
-			labels.append(tac[4])
+			if tac[4].isdigit():
+				labels.append(tac[4])
+				labelsss.append((tac[4],int(tac[4])))
+			# labels.append(tac[4])
 			labels.append(str(LINE_NO+1))
+			labelsss.append((str(LINE_NO+1),LINE_NO+1))
+		elif tac[0]=="fun_label":
+			labels.append(str(LINE_NO))
+			labelsss.append((tac[1],LINE_NO))
+		elif tac[0]=="main" :
+			labels.append(str(LINE_NO))
+			labelsss.append(("main",LINE_NO))
+		elif tac[0]=="label":
+			labels.append(str(LINE_NO))
+			labelsss.append((tac[1],LINE_NO))
+	sorted(labelsss,key=lambda x: x[1])
+	convert_list_to_dict(LINE_NO)
 	f.close()
 
+def convert_list_to_dict(LINE_NO):
+	length= len(labelsss)
+	for x in labelsss:
+		index = labelsss.index(x)
+		if index<length-1:
+			next=labelsss[index+1][1]-1
+		else:
+			next=LINE_NO
+		dictionary[x[1]]={'start':x[1] ,'end':next,'name':x[0]}
+		# print x[0], x[1]
 
 def codegen(filename):
 	f = open(filename,'r')
 	assemblycode = []
+	global current_basic_block
 	assemblycode.append(".data")
 	data = []
 	LINE_NO = 0
 	for line in f.readlines():
 		LINE_NO += 1
+		if LINE_NO in dictionary:
+			current_basic_block=LINE_NO
+			# print current_basic_block
 		if (str(LINE_NO) in labels):
 			assemblycode.append("LABEL_"+str(LINE_NO)+":")
 		line = line.strip()
@@ -43,13 +91,13 @@ def codegen(filename):
 		elif tac[0] == "=":
 			reg1 = None
 			reg2 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
@@ -62,19 +110,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -87,19 +135,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -112,19 +160,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -139,19 +187,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -166,19 +214,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -193,19 +241,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -219,19 +267,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -275,19 +323,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -300,19 +348,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -325,19 +373,19 @@ def codegen(filename):
 			reg1 = None
 			reg2 = None
 			reg3 = None
-			ret_val = register_handler.getreg(tac[1])
+			ret_val = register_handler.getreg(tac[1],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg2 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg3 = ret_val[0]
 			else:
@@ -404,13 +452,13 @@ def codegen(filename):
 			label_to_jump = tac[4]
 			reg1 = None
 			reg2 = None
-			ret_val = register_handler.getreg(tac[2])
+			ret_val = register_handler.getreg(tac[2],LINE_NO)
 			if len(ret_val)==1:
 				reg1 = ret_val[0]
 			else:
 				assemblycode.append(ret_val[1])
 				reg1 = ret_val[0]
-			ret_val = register_handler.getreg(tac[3])
+			ret_val = register_handler.getreg(tac[3],LINE_NO)
 			if len(ret_val)==1:
 				reg2 = ret_val[0]
 			else:
@@ -433,9 +481,9 @@ def codegen(filename):
 		#array access and modification
 		elif tac[0]=="array":
 			if tac[3] == "set":
-				reg1 = register_handler.getreg(" ")[0]
+				reg1 = register_handler.getreg(" ",LINE_NO)[0]
 				assemblycode.append("\tla "+reg1+","+tac[1])
-				ret_val = register_handler.getreg(tac[4])
+				ret_val = register_handler.getreg(tac[4],LINE_NO)
 				if len(ret_val) == 1:
 					reg2 = ret_val[0]
 				else:
@@ -443,8 +491,8 @@ def codegen(filename):
 					reg2 = ret_val[0]
 				assemblycode.append("\tsw "+reg2+","+str(4*int(tac[2]))+"("+reg1+")")
 			elif tac[3] == "get":
-				reg1 = register_handler.getreg(" ")[0]
-				reg2 = register_handler.getreg(" ")[0]
+				reg1 = register_handler.getreg(" ",LINE_NO)[0]
+				reg2 = register_handler.getreg(" ",LINE_NO)[0]
 				assemblycode.append("\tla "+reg1+","+tac[1])
 				assemblycode.append("\tlw "+reg2+","+str(4*int(tac[2]))+"("+reg1+")")
 				assemblycode.append("\tsw "+reg2+","+tac[4])
@@ -453,8 +501,22 @@ def codegen(filename):
 
 if __name__ == '__main__':
 	filename = sys.argv[1]
-	# findlabels(filename)
+	# print filename
+	findlabels()
+	# print(json.dumps(dictionary, indent = 4))
+	for car in dictionary.items():
+		print car
+		# print "fdsafasfasd"
 	register_handler = regalloc.regalloc()
 	assemblycode = codegen(filename)
-	for line in assemblycode:
-		print line
+	# print dictionary
+	# if 33 in dictionary:
+	# 	print "dfasfdsaf"
+	# for line in assemblycode:
+	# 	print line
+
+
+	# for x in labelsss:
+	# 	print x[0], x[1]
+	# for x in labels:
+	# 	print x
