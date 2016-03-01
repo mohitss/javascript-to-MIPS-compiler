@@ -228,6 +228,11 @@ class MyLexer(object):
 
 # Build the lexer and try it out
 
+temp = MyLexer()
+temp.build()
+lexer = temp.lexer
+tokens = temp.tokens
+
 if __name__ == "__main__":
 	m = MyLexer()
 	m.build()

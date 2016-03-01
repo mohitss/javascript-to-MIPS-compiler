@@ -1,0 +1,529 @@
+Created by PLY version 3.8 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    VOID
+    OBJECT
+    OP_NOTUNIVEQUAL
+    OP_GREATER
+    PROTECTED
+    WITH
+    COMMENT
+    OP_LESSEQUAL
+    NEWLINE
+    LONG
+    OP_MODEQUAL
+    IMPORT
+    OP_PLUSEQUAL
+    DEBUGGER
+    OP_DECREMENT
+    ENUM
+    NATIVE
+    EXTENDS
+    EVAL
+    VAR
+    OP_LESS
+    OP_UNIVEQUAL
+    THIS
+    DOUBLE
+    THROWS
+    TRANSIENT
+    TYPEOF
+    INTERFACE
+    DELETE
+    SHORT
+    RETURN
+    OP_MINUSEQUAL
+    SYNCHRONIZED
+    OP_PLUS
+    STATIC
+    HEXADECIMAL
+    FINAL
+    RSQUARE
+    OP_DIVIDE
+    OP_ASSIGNMENT
+    OP_GREATEREQUAL
+    COLON
+    VOLATILE
+    OP_INCREMENT
+    FOR
+    ELSE
+    TRY
+    ARGUMENTS
+    LSQUARE
+    OP_DIVEQUAL
+    INSTANCEOF
+    OP_RSHIFT
+    INT
+    OP_OR
+    CONTINUE
+    OCTAL_NUMBER
+    OP_LSHIFT
+    OP_TERNARY
+    DEFAULT
+    IN
+    CHAR
+    WHILE
+    SEMI_COLON
+    NEW
+    DOT
+    OP_EXPO
+    CASE
+    OP_MULTEQUAL
+    OP_AND
+    SWITCH
+    CATCH
+    ARRAY
+    PACKAGE
+    BYTE
+    TRUE
+    IMPLEMENTS
+    FALSE
+    BREAK
+    BOOLEAN
+    BOOL
+    PUBLIC
+    DO
+    CONST
+    OP_MINUS
+    ABSTRACT
+    NUMBER
+    EXPORT
+    OP_NOT
+    NULL
+    GOTO
+    PRIVATE
+    LET
+    CLASS
+    STRING
+    OP_NOTEQUAL
+    YIELD
+    FINALLY
+    OP_EQUAL
+    IF
+    EXPO_NUMBER
+    OP_MULT
+    OP_MODULUS
+    FLOAT
+    SUPER
+    THROW
+
+Grammar
+
+Rule 0     S' -> start
+Rule 1     empty -> <empty>
+Rule 2     start -> sourceElements
+Rule 3     start -> empty
+Rule 4     sourceElements -> sourceElement
+Rule 5     sourceElements -> sourceElements sourceElement
+Rule 6     sourceElement -> functionDeclaration
+Rule 7     sourceElement -> statement
+Rule 8     functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+Rule 9     functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+Rule 10    formalParameterList -> IDENTIFIER
+Rule 11    formalParameterList -> formalParameterList COMMA IDENTIFIER
+Rule 12    functionBody -> sourceElements
+Rule 13    statement -> IDENTIFIER
+
+Terminals, with rules where they appear
+
+ABSTRACT             : 
+ARGUMENTS            : 
+ARRAY                : 
+BOOL                 : 
+BOOLEAN              : 
+BREAK                : 
+BYTE                 : 
+CASE                 : 
+CATCH                : 
+CHAR                 : 
+CLASS                : 
+CLOSE_BRACE          : 8 9
+COLON                : 
+COMMA                : 11
+COMMENT              : 
+CONST                : 
+CONTINUE             : 
+DEBUGGER             : 
+DEFAULT              : 
+DELETE               : 
+DO                   : 
+DOT                  : 
+DOUBLE               : 
+ELSE                 : 
+ENUM                 : 
+EVAL                 : 
+EXPORT               : 
+EXPO_NUMBER          : 
+EXTENDS              : 
+FALSE                : 
+FINAL                : 
+FINALLY              : 
+FLOAT                : 
+FOR                  : 
+FUNCTION             : 8 9
+GOTO                 : 
+HEXADECIMAL          : 
+IDENTIFIER           : 8 9 10 11 13
+IF                   : 
+IMPLEMENTS           : 
+IMPORT               : 
+IN                   : 
+INSTANCEOF           : 
+INT                  : 
+INTERFACE            : 
+LET                  : 
+LONG                 : 
+LPAREN               : 8 9
+LSQUARE              : 
+NATIVE               : 
+NEW                  : 
+NEWLINE              : 
+NULL                 : 
+NUMBER               : 
+OBJECT               : 
+OCTAL_NUMBER         : 
+OPEN_BRACE           : 8 9
+OP_AND               : 
+OP_ASSIGNMENT        : 
+OP_DECREMENT         : 
+OP_DIVEQUAL          : 
+OP_DIVIDE            : 
+OP_EQUAL             : 
+OP_EXPO              : 
+OP_GREATER           : 
+OP_GREATEREQUAL      : 
+OP_INCREMENT         : 
+OP_LESS              : 
+OP_LESSEQUAL         : 
+OP_LSHIFT            : 
+OP_MINUS             : 
+OP_MINUSEQUAL        : 
+OP_MODEQUAL          : 
+OP_MODULUS           : 
+OP_MULT              : 
+OP_MULTEQUAL         : 
+OP_NOT               : 
+OP_NOTEQUAL          : 
+OP_NOTUNIVEQUAL      : 
+OP_OR                : 
+OP_PLUS              : 
+OP_PLUSEQUAL         : 
+OP_RSHIFT            : 
+OP_TERNARY           : 
+OP_UNIVEQUAL         : 
+PACKAGE              : 
+PRIVATE              : 
+PROTECTED            : 
+PUBLIC               : 
+RETURN               : 
+RPAREN               : 8 9
+RSQUARE              : 
+SEMI_COLON           : 
+SHORT                : 
+STATIC               : 
+STRING               : 
+SUPER                : 
+SWITCH               : 
+SYNCHRONIZED         : 
+THIS                 : 
+THROW                : 
+THROWS               : 
+TRANSIENT            : 
+TRUE                 : 
+TRY                  : 
+TYPEOF               : 
+VAR                  : 
+VOID                 : 
+VOLATILE             : 
+WHILE                : 
+WITH                 : 
+YIELD                : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+empty                : 3
+formalParameterList  : 8 11
+functionBody         : 8 9
+functionDeclaration  : 6
+sourceElement        : 4 5
+sourceElements       : 2 5 12
+start                : 0
+statement            : 7
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . start
+    (2) start -> . sourceElements
+    (3) start -> . empty
+    (4) sourceElements -> . sourceElement
+    (5) sourceElements -> . sourceElements sourceElement
+    (1) empty -> .
+    (6) sourceElement -> . functionDeclaration
+    (7) sourceElement -> . statement
+    (8) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (13) statement -> . IDENTIFIER
+
+    $end            reduce using rule 1 (empty -> .)
+    FUNCTION        shift and go to state 1
+    IDENTIFIER      shift and go to state 7
+
+    functionDeclaration            shift and go to state 2
+    sourceElements                 shift and go to state 3
+    sourceElement                  shift and go to state 4
+    start                          shift and go to state 5
+    statement                      shift and go to state 6
+    empty                          shift and go to state 8
+
+state 1
+
+    (8) functionDeclaration -> FUNCTION . IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> FUNCTION . IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+
+    IDENTIFIER      shift and go to state 9
+
+
+state 2
+
+    (6) sourceElement -> functionDeclaration .
+
+    FUNCTION        reduce using rule 6 (sourceElement -> functionDeclaration .)
+    IDENTIFIER      reduce using rule 6 (sourceElement -> functionDeclaration .)
+    CLOSE_BRACE     reduce using rule 6 (sourceElement -> functionDeclaration .)
+    $end            reduce using rule 6 (sourceElement -> functionDeclaration .)
+
+
+state 3
+
+    (2) start -> sourceElements .
+    (5) sourceElements -> sourceElements . sourceElement
+    (6) sourceElement -> . functionDeclaration
+    (7) sourceElement -> . statement
+    (8) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (13) statement -> . IDENTIFIER
+
+    $end            reduce using rule 2 (start -> sourceElements .)
+    FUNCTION        shift and go to state 1
+    IDENTIFIER      shift and go to state 7
+
+    functionDeclaration            shift and go to state 2
+    sourceElement                  shift and go to state 10
+    statement                      shift and go to state 6
+
+state 4
+
+    (4) sourceElements -> sourceElement .
+
+    FUNCTION        reduce using rule 4 (sourceElements -> sourceElement .)
+    IDENTIFIER      reduce using rule 4 (sourceElements -> sourceElement .)
+    CLOSE_BRACE     reduce using rule 4 (sourceElements -> sourceElement .)
+    $end            reduce using rule 4 (sourceElements -> sourceElement .)
+
+
+state 5
+
+    (0) S' -> start .
+
+
+
+state 6
+
+    (7) sourceElement -> statement .
+
+    FUNCTION        reduce using rule 7 (sourceElement -> statement .)
+    IDENTIFIER      reduce using rule 7 (sourceElement -> statement .)
+    CLOSE_BRACE     reduce using rule 7 (sourceElement -> statement .)
+    $end            reduce using rule 7 (sourceElement -> statement .)
+
+
+state 7
+
+    (13) statement -> IDENTIFIER .
+
+    FUNCTION        reduce using rule 13 (statement -> IDENTIFIER .)
+    IDENTIFIER      reduce using rule 13 (statement -> IDENTIFIER .)
+    $end            reduce using rule 13 (statement -> IDENTIFIER .)
+    CLOSE_BRACE     reduce using rule 13 (statement -> IDENTIFIER .)
+
+
+state 8
+
+    (3) start -> empty .
+
+    $end            reduce using rule 3 (start -> empty .)
+
+
+state 9
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER . LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> FUNCTION IDENTIFIER . LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+
+    LPAREN          shift and go to state 11
+
+
+state 10
+
+    (5) sourceElements -> sourceElements sourceElement .
+
+    FUNCTION        reduce using rule 5 (sourceElements -> sourceElements sourceElement .)
+    IDENTIFIER      reduce using rule 5 (sourceElements -> sourceElements sourceElement .)
+    CLOSE_BRACE     reduce using rule 5 (sourceElements -> sourceElements sourceElement .)
+    $end            reduce using rule 5 (sourceElements -> sourceElements sourceElement .)
+
+
+state 11
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER LPAREN . formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> FUNCTION IDENTIFIER LPAREN . RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (10) formalParameterList -> . IDENTIFIER
+    (11) formalParameterList -> . formalParameterList COMMA IDENTIFIER
+
+    RPAREN          shift and go to state 12
+    IDENTIFIER      shift and go to state 14
+
+    formalParameterList            shift and go to state 13
+
+state 12
+
+    (9) functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN . OPEN_BRACE functionBody CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 15
+
+
+state 13
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList . RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (11) formalParameterList -> formalParameterList . COMMA IDENTIFIER
+
+    RPAREN          shift and go to state 16
+    COMMA           shift and go to state 17
+
+
+state 14
+
+    (10) formalParameterList -> IDENTIFIER .
+
+    RPAREN          reduce using rule 10 (formalParameterList -> IDENTIFIER .)
+    COMMA           reduce using rule 10 (formalParameterList -> IDENTIFIER .)
+
+
+state 15
+
+    (9) functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE . functionBody CLOSE_BRACE
+    (12) functionBody -> . sourceElements
+    (4) sourceElements -> . sourceElement
+    (5) sourceElements -> . sourceElements sourceElement
+    (6) sourceElement -> . functionDeclaration
+    (7) sourceElement -> . statement
+    (8) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (13) statement -> . IDENTIFIER
+
+    FUNCTION        shift and go to state 1
+    IDENTIFIER      shift and go to state 7
+
+    functionBody                   shift and go to state 18
+    functionDeclaration            shift and go to state 2
+    sourceElements                 shift and go to state 19
+    sourceElement                  shift and go to state 4
+    statement                      shift and go to state 6
+
+state 16
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN . OPEN_BRACE functionBody CLOSE_BRACE
+
+    OPEN_BRACE      shift and go to state 20
+
+
+state 17
+
+    (11) formalParameterList -> formalParameterList COMMA . IDENTIFIER
+
+    IDENTIFIER      shift and go to state 21
+
+
+state 18
+
+    (9) functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody . CLOSE_BRACE
+
+    CLOSE_BRACE     shift and go to state 22
+
+
+state 19
+
+    (12) functionBody -> sourceElements .
+    (5) sourceElements -> sourceElements . sourceElement
+    (6) sourceElement -> . functionDeclaration
+    (7) sourceElement -> . statement
+    (8) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (13) statement -> . IDENTIFIER
+
+    CLOSE_BRACE     reduce using rule 12 (functionBody -> sourceElements .)
+    FUNCTION        shift and go to state 1
+    IDENTIFIER      shift and go to state 7
+
+    functionDeclaration            shift and go to state 2
+    sourceElement                  shift and go to state 10
+    statement                      shift and go to state 6
+
+state 20
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE . functionBody CLOSE_BRACE
+    (12) functionBody -> . sourceElements
+    (4) sourceElements -> . sourceElement
+    (5) sourceElements -> . sourceElements sourceElement
+    (6) sourceElement -> . functionDeclaration
+    (7) sourceElement -> . statement
+    (8) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (9) functionDeclaration -> . FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE
+    (13) statement -> . IDENTIFIER
+
+    FUNCTION        shift and go to state 1
+    IDENTIFIER      shift and go to state 7
+
+    functionBody                   shift and go to state 23
+    functionDeclaration            shift and go to state 2
+    sourceElements                 shift and go to state 19
+    sourceElement                  shift and go to state 4
+    statement                      shift and go to state 6
+
+state 21
+
+    (11) formalParameterList -> formalParameterList COMMA IDENTIFIER .
+
+    RPAREN          reduce using rule 11 (formalParameterList -> formalParameterList COMMA IDENTIFIER .)
+    COMMA           reduce using rule 11 (formalParameterList -> formalParameterList COMMA IDENTIFIER .)
+
+
+state 22
+
+    (9) functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE .
+
+    FUNCTION        reduce using rule 9 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+    IDENTIFIER      reduce using rule 9 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+    CLOSE_BRACE     reduce using rule 9 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+    $end            reduce using rule 9 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+
+
+state 23
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody . CLOSE_BRACE
+
+    CLOSE_BRACE     shift and go to state 24
+
+
+state 24
+
+    (8) functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE .
+
+    FUNCTION        reduce using rule 8 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+    IDENTIFIER      reduce using rule 8 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+    CLOSE_BRACE     reduce using rule 8 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+    $end            reduce using rule 8 (functionDeclaration -> FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN OPEN_BRACE functionBody CLOSE_BRACE .)
+
