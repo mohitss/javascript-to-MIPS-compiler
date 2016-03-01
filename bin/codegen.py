@@ -75,7 +75,8 @@ def codegen(filename):
 		LINE_NO += 1
 		if LINE_NO in dictionary:
 			current_basic_block=LINE_NO
-			register_handler.flush_temp()
+			code = register_handler.flush_temp()
+			assemblycode.append(code)
 			if dictionary[LINE_NO]['name'].isdigit():
 				assemblycode.append("LABEL_"+str(LINE_NO)+":")
 			# print current_basic_block

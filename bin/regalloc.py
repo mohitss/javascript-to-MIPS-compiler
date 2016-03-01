@@ -14,18 +14,18 @@ class regalloc:
 				'$t1' : None,
 				'$t2' : None,
 				'$t3' : None,
-				'$t4' : None,
-				'$t5' : None,
-				'$t6' : None,
-				'$t7' : None,
-				'$s0' : None,   #Callee Saved Registers
-				'$s1' : None,
-				'$s2' : None,
-				'$s3' : None,
-				'$s4' : None, 
-				'$s5' : None, #Removed to be used in the functions
-				'$s6' : None,
-				'$s7' : None,
+				# '$t4' : None,
+				# '$t5' : None,
+				# '$t6' : None,
+				# '$t7' : None,
+				# '$s0' : None,   #Callee Saved Registers
+				# '$s1' : None,
+				# '$s2' : None,
+				# '$s3' : None,
+				# '$s4' : None, 
+				# '$s5' : None, #Removed to be used in the functions
+				# '$s6' : None,
+				# '$s7' : None,
 				}
 		self.freeRegisters = [ reg for reg in self.Registers.keys() ] #Set all the registers to free
 		self.variables = {}
@@ -36,7 +36,6 @@ class regalloc:
 		local_dict={}
 		start=LINE_NO-1
 		end=dictionary[current_basic_block]['end']-1
-		print LINE_NO,filename
 		while(start<=end):
 			line = lines[end].strip()
 			tac = line.split(",")
@@ -78,22 +77,23 @@ class regalloc:
 			pass
 		sorted_x=sorted(local_dict.items(), key=lambda x:x[1],reverse=True)
 		f.close()
-		print local_dict
-		print sorted_x
 		return(sorted_x,temp_list)
 
 
 	def flush_temp(self):
 		regex = re.compile('temp_[0-9_]*')
+		code  = ""
 		for key,value in self.Registers.iteritems():
 			if value!= None  and regex.match(value):
+				code += "\tsw "+key+","+value+"\n"
 				self.freeRegisters.append(reg)
 				self.registerInUse.remove(reg)
 				self.Registers[reg] = None
+		return code
 
 	def getreg(self,variable,LINE_NO,dictionary,filename,current_basic_block,arr=False):
-		print self.freeRegisters
-		print self.Registers
+		# print self.freeRegisters
+		# print self.Registers
 		if arr==True and variable in self.Registers.values():
 			for key,value in self.Registers.iteritems():
 				if value == variable:
@@ -148,12 +148,12 @@ class regalloc:
 					break
 				else:
 					next_register= s[0]
-			print next_register
+			# print next_register
 			if next_register != 'None':
 				for key,value in self.Registers.iteritems():
 					if value == next_register:
 						code = "\tsw "+ key +","+ value+"\n"
-						code += "\tlw " + key + "," + value
+						code += "\tlw " + key + "," + variable
 						return (key,code)
 
 			for key,value in self.Registers.iteritems():
@@ -161,6 +161,6 @@ class regalloc:
 					pass
 				else:
 					code = "\tsw "+ key +","+ value+"\n"
-					code += "\tlw " + key + "," + value
+					code += "\tlw " + key + "," + variable
 					return (key,code)
 

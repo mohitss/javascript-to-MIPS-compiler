@@ -224,11 +224,7 @@ class MyLexer(object):
 			 self.dictionary[tok.type][1] |= {tok.value} 
 		for keys,values in self.dictionary.iteritems():
 			if values[0]:
-				string = keys +"\t\t"
-				string = string + str(self.dictionary[keys][0]) +"\t\t"
-				string = string + str(list(self.dictionary[keys][1]))
-				print string
-				# print keys,self.dictionary[keys]
+				print keys,self.dictionary[keys]
 
 # Build the lexer and try it out
 
