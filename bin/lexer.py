@@ -128,13 +128,24 @@ class MyLexer(object):
 	   'EXPO_NUMBER',
 	   'OCTAL_NUMBER',
 	   'HEXADECIMAL',
+
+	   ###BITWISE OPERATORS
+	   'BITWISE_AND',
+	   'BITWISE_OR',
+	   'BITWISE_NOT',
+	   'BITWISE_XOR',
+
+
+
 	)
 	tokens = list(tokens) + list(reserved.values())
 
 	for token in tokens:
 		dictionary[token] = [0,set([])]
 
-	t_ignore=' \t'
+	t_ignore=" \t"
+	# t_ignore="\n"
+
 	t_OP_PLUS		=	r'\+'
 	t_OP_MINUS		=	r'-'
 	t_OP_MULT		=	r'\*'
@@ -163,8 +174,17 @@ class MyLexer(object):
 	t_OP_RSHIFT		=	r'>>'
 	t_OP_AND		=	r'&&'
 	t_OP_OR		=	r'\|\|'
+	
+	t_BITWISE_AND = r'&'
+	t_BITWISE_OR = r'\|'
+	t_BITWISE_NOT = r'~'
+	t_BITWISE_XOR = r'\^'
+
+
+
 	t_LPAREN	=	r'\('
 	t_RPAREN	= 	r'\)'
+	
 	t_OPEN_BRACE	=	r'{'
 	t_CLOSE_BRACE	=   r'}'
 	t_LSQUARE		=	   r'\['
@@ -173,7 +193,10 @@ class MyLexer(object):
 	t_COLON     =	r':'
 	t_SEMI_COLON	=	r';'
 	t_DOT       =	r'\.'   
-	t_NEWLINE	=	r'\n+'
+
+
+
+
 	def t_COMMENT(self,t):
 		r'(\/\*[\w\'\s\r\n\*]*\*\/)|(\/\/.*\n)|(\<![\-\-\s\w\>\/]*\>)'
 		pass
@@ -185,7 +208,7 @@ class MyLexer(object):
 
 
 	def t_error(self,t):
-		print("Illegal character '%s'" % t.value[0])
+		print("Illegal character is'%s'do\n" % t.value[0])
 		t.lexer.skip(1)
 
 	def t_NUMBER(self,t):           
