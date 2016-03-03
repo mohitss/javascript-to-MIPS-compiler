@@ -52,8 +52,8 @@ def p_statement(p):
 				| throwStatement
 				| tryStatement				
 				| ifStatement 
-				| expressionStatement'''
-				# | iterationStatement'''
+				| expressionStatement
+				| iterationStatement'''
 
 def p_statementNoIf(p):
 	'''statementNoIf : block
@@ -68,8 +68,8 @@ def p_statementNoIf(p):
 				| throwStatement
 				| tryStatement				
 				| ifStatementNoIf
-				| expressionStatement'''
-				# | iterationStatementNoIf'''
+				| expressionStatement
+				| iterationStatementNoIf'''
 
 
 def p_continueStatement(p):
@@ -148,48 +148,41 @@ def p_ifStatement(p):
 def p_ifStatementNoIf(p):
 	'''ifStatementNoIf : IF LPAREN expression RPAREN statementNoIf ELSE statementNoIf'''
 
-# def p_iterationStatement(p):
-# 	'''iterationStatement : DO statement WHILE LPAREN expression RPAREN 
-# 							| DO statement WHILE LPAREN expression RPAREN SEMI_COLON
-# 							| WHILE LPAREN expression RPAREN statement
-# 							| FOR LPAREN SEMI_COLON SEMI_COLON RPAREN statement
-# 							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statement
-# 							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statement
-# 							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statement
-# 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statement
-# 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statement
-# 							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON RPAREN statement
-# 							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statement
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statement
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statement
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statement
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statement
-# 							| FOR LPAREN VAR variableDeclarationNoIn IN expression RPAREN statement
-# 							| FOR LPAREN leftHandSideExpressionForIn IN expression RPAREN statement'''
-
-# def p_iterationStatementNoIf(p):
-# 	'''iterationStatement : DO statement WHILE LPAREN expression RPAREN 
-# 							| DO statement WHILE LPAREN expression RPAREN SEMI_COLON
-# 							| WHILE LPAREN expression RPAREN statementNoIf
-# 							| FOR LPAREN SEMI_COLON SEMI_COLON RPAREN statementNoIf
-# 							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
-# 							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
-# 							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
-# 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statementNoIf
-# 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
-# 							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
-# 							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statementNoIf
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
-# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
-# 							| FOR LPAREN VAR variableDeclarationNoIn IN expression RPAREN statementNoIf
-# 							| FOR LPAREN leftHandSideExpressionForIn IN expression RPAREN statementNoIf'''
-
-# def p_leftHandSideExpressionForIn(p):
-# 	'''leftHandSideExpressionForIn : callExpressionForIn
-# 									| memberExpressionForIn'''
-
+def p_iterationStatement(p):
+	'''iterationStatement :  DO statement WHILE LPAREN expression RPAREN SEMI_COLON
+							| WHILE LPAREN expression RPAREN statement
+							| FOR LPAREN SEMI_COLON SEMI_COLON RPAREN statement
+							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statement
+							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statement
+							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statement
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statement
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statement
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statement
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statement
+							| FOR LPAREN leftHandSideExpression IN expression RPAREN statement
+							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statement
+							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statement
+							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON RPAREN statement
+							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statement
+							| FOR LPAREN VAR variableDeclarationNoIn IN expression RPAREN statement'''
+							
+def p_iterationStatementNoIf(p):
+	'''iterationStatementNoIf :  DO statement WHILE LPAREN expression RPAREN SEMI_COLON
+							| WHILE LPAREN expression RPAREN statementNoIf
+							| FOR LPAREN SEMI_COLON SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN leftHandSideExpression IN expression RPAREN statementNoIf
+							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationNoIn IN expression RPAREN statementNoIf'''
 
 
 def p_block(p):
@@ -211,16 +204,16 @@ def p_variableDeclaration(p):
 	'''variableDeclaration : IDENTIFIER initialiser 
 							| IDENTIFIER'''
 
-# def p_variableDeclarationNoIn(p):
-# 	'''variableDeclarationNoIn : IDENTIFIER initialiserNoIn 
-# 							| IDENTIFIER'''
+def p_variableDeclarationNoIn(p):
+	'''variableDeclarationNoIn : IDENTIFIER initialiserNoIn 
+							| IDENTIFIER'''
 
 def p_initialiser(p):
 	'''initialiser : OP_ASSIGNMENT assignmentExpression'''
 
 
-# def p_initialiserNoIn(p):
-# 	'''initialiserNoIn : OP_ASSIGNMENT assignmentExpressionNoIn'''
+def p_initialiserNoIn(p):
+	'''initialiserNoIn : OP_ASSIGNMENT assignmentExpressionNoIn'''
 
 
 
@@ -232,9 +225,9 @@ def p_assignmentExpression(p):
 	'''assignmentExpression : conditionalExpression
 							| leftHandSideExpression assignmentOperator assignmentExpression'''
 
-# def p_assignmentExpressionNoIn(p):
-# 	'''assignmentExpressionNoIn : conditionalExpressionNoIn
-# 							| leftHandSideExpression assignmentOperator assignmentExpressionNoIn'''
+def p_assignmentExpressionNoIn(p):
+	'''assignmentExpressionNoIn : conditionalExpressionNoIn
+							| leftHandSideExpression assignmentOperator assignmentExpressionNoIn'''
 
 def p_assignmentOperator(p):
 	'''assignmentOperator : OP_ASSIGNMENT
@@ -253,9 +246,9 @@ def p_conditionalExpressionWithoutFunc(p):
 							 | logicalOrExpressionWithoutFunc OP_TERNARY assignmentExpression COLON assignmentExpression '''
 
 
-# def p_conditionalExpressionNoIn(p):
-# 	'''conditionalExpressionNoIn : logicalOrExpressionNoIn
-# 							 | logicalOrExpressionNoIn OP_TERNARY assignmentExpression COLON assignmentExpressionNoIn '''
+def p_conditionalExpressionNoIn(p):
+	'''conditionalExpressionNoIn : logicalOrExpressionNoIn
+							 | logicalOrExpressionNoIn OP_TERNARY assignmentExpressionNoIn COLON assignmentExpressionNoIn '''
 
 def p_logicalOrExpressionWithoutFunc(p):
 	'''logicalOrExpressionWithoutFunc : logicalAndExpressionWithoutFunc
@@ -265,18 +258,18 @@ def p_logicalOrExpression(p):
 	'''logicalOrExpression : logicalAndExpression
 							| logicalAndExpression tempLogicalOrExpression'''
 
-# def p_logicalOrExpressionNoIn(p):
-# 	'''logicalOrExpressionNoIn : logicalAndExpressionNoIn
-# 							| logicalAndExpressionNoIn tempLogicalOrExpressionNoIn'''
+def p_logicalOrExpressionNoIn(p):
+	'''logicalOrExpressionNoIn : logicalAndExpressionNoIn
+							| logicalAndExpressionNoIn tempLogicalOrExpressionNoIn'''
 
 def p_tempLogicalOrExpression(p):
 	'''tempLogicalOrExpression : logicalOrOperator logicalAndExpression 
 								| logicalOrOperator logicalAndExpression tempLogicalOrExpression'''
 
 
-# def p_tempLogicalOrExpressionNoIn(p):
-# 	'''tempLogicalOrExpressionNoIn : logicalOrOperator logicalAndExpressionNoIn 
-# 								| logicalOrOperator logicalAndExpressionNoIn tempLogicalOrExpressionNoIn'''
+def p_tempLogicalOrExpressionNoIn(p):
+	'''tempLogicalOrExpressionNoIn : logicalOrOperator logicalAndExpressionNoIn 
+								| logicalOrOperator logicalAndExpressionNoIn tempLogicalOrExpressionNoIn'''
 
 
 def p_logicalOrOperator(p):
@@ -294,13 +287,13 @@ def p_tempLogicalAndExpression(p):
 	'''tempLogicalAndExpression : logicalAndOperator bitWiseOrExpression 
 								| logicalAndOperator bitWiseOrExpression tempLogicalAndExpression'''
 
-# def p_logicalAndExpressionNoIn(p):
-# 	'''logicalAndExpressionNoIn : bitWiseOrExpressionNoIn 
-# 							| bitWiseOrExpressionNoIn tempLogicalAndExpressionNoIn'''
+def p_logicalAndExpressionNoIn(p):
+	'''logicalAndExpressionNoIn : bitWiseOrExpressionNoIn 
+							| bitWiseOrExpressionNoIn tempLogicalAndExpressionNoIn'''
 
-# def p_tempLogicalAndExpressionNoIn(p):
-# 	'''tempLogicalAndExpressionNoIn : logicalAndOperator bitWiseOrExpressionNoIn 
-# 								| logicalAndOperator bitWiseOrExpressionNoIn tempLogicalAndExpressionNoIn'''
+def p_tempLogicalAndExpressionNoIn(p):
+	'''tempLogicalAndExpressionNoIn : logicalAndOperator bitWiseOrExpressionNoIn 
+								| logicalAndOperator bitWiseOrExpressionNoIn tempLogicalAndExpressionNoIn'''
 
 def p_logicalAndOperator(p):
 	'''logicalAndOperator : OP_AND'''
@@ -318,13 +311,13 @@ def p_tempBitWiseOrExpression(p):
 	'''tempBitWiseOrExpression : bitWiseOrOperator bitWiseXorExpression
 								| bitWiseOrOperator bitWiseXorExpression tempBitWiseOrExpression'''
 
-# def p_bitWiseOrExpressionNoIn(p):
-# 	'''bitWiseOrExpressionNoIn : bitWiseXorExpressionNoIn
-# 							| bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
+def p_bitWiseOrExpressionNoIn(p):
+	'''bitWiseOrExpressionNoIn : bitWiseXorExpressionNoIn
+							| bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
 
-# def p_tempBitWiseOrExpressionNoIn(p):
-# 	'''tempBitWiseOrExpressionNoIn : bitWiseOrOperator bitWiseXorExpressionNoIn
-# 								| bitWiseOrOperator bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
+def p_tempBitWiseOrExpressionNoIn(p):
+	'''tempBitWiseOrExpressionNoIn : bitWiseOrOperator bitWiseXorExpressionNoIn
+								| bitWiseOrOperator bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
 
 def p_bitWiseOrOperator(p):
 	'''bitWiseOrOperator : BITWISE_OR'''
@@ -342,14 +335,14 @@ def p_tempBitWiseXorExpression(p):
 	'''tempBitWiseXorExpression : bitWiseXorOperator bitWiseAndExpression
 								| bitWiseXorOperator bitWiseAndExpression tempBitWiseXorExpression'''
 
-# def p_bitWiseXorExpressionNoIn(p):
-# 	'''bitWiseXorExpressionNoIn : bitWiseAndExpressionNoIn
-# 							| bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
+def p_bitWiseXorExpressionNoIn(p):
+	'''bitWiseXorExpressionNoIn : bitWiseAndExpressionNoIn
+							| bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
 
 
-# def p_tempBitWiseXorExpressionNoIn(p):
-# 	'''tempBitWiseXorExpressionNoIn : bitWiseXorOperator bitWiseAndExpressionNoIn
-# 								| bitWiseXorOperator bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
+def p_tempBitWiseXorExpressionNoIn(p):
+	'''tempBitWiseXorExpressionNoIn : bitWiseXorOperator bitWiseAndExpressionNoIn
+								| bitWiseXorOperator bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
 
 def p_bitWiseXorOperator(p):
 	'''bitWiseXorOperator : BITWISE_XOR'''
@@ -369,14 +362,14 @@ def p_tempBitWiseAndExpression(p):
 								| bitWiseAndOperator equalityExpression tempBitWiseAndExpression'''
 
 
-# def p_bitWiseAndExpressionNoIn(p):
-# 	'''bitWiseAndExpressionNoIn : equalityExpressionNoIn
-# 							| equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
+def p_bitWiseAndExpressionNoIn(p):
+	'''bitWiseAndExpressionNoIn : equalityExpressionNoIn
+							| equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
 
 
-# def p_tempBitWiseAndExpressionNoIn(p):
-# 	'''tempBitWiseAndExpressionNoIn : bitWiseAndOperator equalityExpressionNoIn
-# 								| bitWiseAndOperator equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
+def p_tempBitWiseAndExpressionNoIn(p):
+	'''tempBitWiseAndExpressionNoIn : bitWiseAndOperator equalityExpressionNoIn
+								| bitWiseAndOperator equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
 
 def p_bitWiseAndOperator(p):
 	'''bitWiseAndOperator : BITWISE_AND'''
@@ -395,13 +388,13 @@ def p_tempEqualityExpression(p):
 								| equalityOperator relationalExpression tempEqualityExpression'''
 
 
-# # def p_equalityExpressionNoIn(p):
-# # 	'''equalityExpressionNoIn : relationalExpressionNoIn 
-# # 							| relationalExpressionNoIn tempEqualityExpressionNoIn'''
+def p_equalityExpressionNoIn(p):
+	'''equalityExpressionNoIn : relationalExpressionNoIn 
+							| relationalExpressionNoIn tempEqualityExpressionNoIn'''
 
-# # def p_tempEqualityExpressionNoIn(p):
-# # 	'''tempEqualityExpressionNoIn : equalityOperator relationalExpressionNoIn
-# # 								| equalityOperator relationalExpressionNoIn tempEqualityExpressionNoIn'''
+def p_tempEqualityExpressionNoIn(p):
+	'''tempEqualityExpressionNoIn : equalityOperator relationalExpressionNoIn
+								| equalityOperator relationalExpressionNoIn tempEqualityExpressionNoIn'''
 
 
 def p_equalityOperator(p):
@@ -413,40 +406,46 @@ def p_equalityOperator(p):
 
 def p_relationalExpression(p):
 	'''relationalExpression :  shiftExpression
-							| shiftExpression tempRelationalExpression'''
+							| relationalExpression OP_GREATER shiftExpression
+							| relationalExpression OP_LESS shiftExpression
+							| relationalExpression OP_GREATEREQUAL shiftExpression
+							| relationalExpression OP_LESSEQUAL shiftExpression
+							| relationalExpression INSTANCEOF shiftExpression
+							| relationalExpression IN shiftExpression'''
 
 def p_relationalExpressionWithoutFunc(p):
 	'''relationalExpressionWithoutFunc :  shiftExpressionWithoutFunc
-							| shiftExpressionWithoutFunc tempRelationalExpression'''														
+							| relationalExpressionWithoutFunc OP_GREATER shiftExpression
+							| relationalExpressionWithoutFunc OP_LESS shiftExpression
+							| relationalExpressionWithoutFunc OP_GREATEREQUAL shiftExpression
+							| relationalExpressionWithoutFunc OP_LESSEQUAL shiftExpression
+							| relationalExpressionWithoutFunc INSTANCEOF shiftExpression
+							| relationalExpressionWithoutFunc IN shiftExpression'''														
 
-def p_tempRelationalExpression(p):
-	'''tempRelationalExpression : relationalOperator shiftExpression
-								| relationalOperator shiftExpression tempRelationalExpression'''
-
-# # def p_relationalExpressionNoIn(p):
-# # 	'''relationalExpressionNoIn : shiftExpression
-# # 							| shiftExpression tempRelationalExpressionNoIn'''
-
-# # def p_tempRelationalExpressionNoIn(p):
-# # 	'''tempRelationalExpressionNoIn : relationalNoInOperator shiftExpression
-# # 								| relationalNoInOperator shiftExpression tempRelationalExpressionNoIn'''
+# def p_tempRelationalExpression(p):
+# 	'''tempRelationalExpression : relationalOperator shiftExpression
+# 								| relationalOperator shiftExpression tempRelationalExpression'''
 
 
-def p_relationalOperator(p):
-	'''relationalOperator : OP_GREATER
-							| OP_LESS
-							| OP_GREATEREQUAL
-							| OP_LESSEQUAL
-							| INSTANCEOF
-							| IN'''
+
+# def p_relationalOperator(p):
+# 	'''relationalOperator : OP_GREATER
+# 							| OP_LESS
+# 							| OP_GREATEREQUAL
+# 							| OP_LESSEQUAL
+# 							| INSTANCEOF
+# 							| IN'''
 
 
-# # def p_relationalNoInOperator(p):
-# # 	'''relationalNoInOperator : OP_GREATER
-# # 							| OP_LESS
-# # 							| OP_GREATEREQUAL
-# # 							| OP_LESSEQUAL
-# # 							| INSTANCEOF'''
+
+def p_relationalExpressionNoIn(p):
+	'''relationalExpressionNoIn : shiftExpression
+							| relationalExpressionNoIn OP_GREATER shiftExpression
+							| relationalExpressionNoIn OP_LESS shiftExpression
+							| relationalExpressionNoIn OP_GREATEREQUAL shiftExpression
+							| relationalExpressionNoIn OP_LESSEQUAL shiftExpression
+							| relationalExpressionNoIn INSTANCEOF shiftExpression'''
+
 
 def p_shiftExpression(p):
 	'''shiftExpression : additiveExpression
@@ -567,11 +566,12 @@ def p_memberExpressionWithoutFunc(p):
 
 
 
-# # def p_memberExpressionForIn(p):
-# # 	'''memberExpressionForIn : functionExpression 
-# # 							| primaryExpression 
-# # 							| functionExpression tempMemberPartExpression
-# # 							| primaryExpression tempMemberPartExpression'''
+# def p_memberExpressionForIn(p):
+# 	'''memberExpressionForIn : functionExpression 
+# 							| primaryExpression 
+# 							| memberExpression LSQUARE expression RSQUARE
+# 							| memberExpression DOT IDENTIFIER
+# 							| NEW memberExpression arguements'''
 
 
 def p_expression(p):
@@ -582,13 +582,13 @@ def p_expressionWithoutFunc(p):
 	'''expressionWithoutFunc : assignmentExpressionWithoutFunc 
 					| expressionWithoutFunc COMMA assignmentExpression '''
 
-# # def p_expressionNoIn(p):
-# # 	'''expressionNoIn : assignmentExpressionNoIn 
-# # 					| assignmentExpressionNoIn tempExpressionNoIn'''
+def p_expressionNoIn(p):
+	'''expressionNoIn : assignmentExpressionNoIn 
+					| assignmentExpressionNoIn tempExpressionNoIn'''
 
-# # def p_tempExpressionNoIn(p):
-# # 	'''tempExpressionNoIn : COMMA assignmentExpressionNoIn
-# # 						| COMMA assignmentExpressionNoIn tempExpressionNoIn'''
+def p_tempExpressionNoIn(p):
+	'''tempExpressionNoIn : COMMA assignmentExpressionNoIn
+						| COMMA assignmentExpressionNoIn tempExpressionNoIn'''
 
 def p_primaryExpression(p):
 	'''primaryExpression : THIS
@@ -613,7 +613,6 @@ def p_literal(p):
 				| HEXADECIMAL
 				| STRING
 				| NULL
-				| TRUE 
 				| FALSE'''
 
 
