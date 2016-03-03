@@ -155,10 +155,10 @@ def p_iterationStatement(p):
 							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statement
 							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statement
 							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statement
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statement
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statement
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statement
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statement
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON SEMI_COLON RPAREN statement
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON SEMI_COLON expression RPAREN statement
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON expression SEMI_COLON RPAREN statement
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statement
 							| FOR LPAREN leftHandSideExpression IN expression RPAREN statement
 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statement
 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statement
@@ -173,10 +173,10 @@ def p_iterationStatementNoIf(p):
 							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
 							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
 							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statementNoIf
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
-							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+							| FOR LPAREN VAR variableDeclarationListNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
 							| FOR LPAREN leftHandSideExpression IN expression RPAREN statementNoIf
 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statementNoIf
 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
@@ -199,6 +199,10 @@ def p_variableStatement(p):
 def p_variableDeclarationList(p):
 	'''variableDeclarationList : variableDeclaration 
 								| variableDeclarationList COMMA variableDeclaration '''
+
+def p_variableDeclarationListNoIn(p):
+	'''variableDeclarationListNoIn : variableDeclarationNoIn 
+								| variableDeclarationListNoIn COMMA variableDeclarationNoIn '''
 
 def p_variableDeclaration(p):
 	'''variableDeclaration : IDENTIFIER initialiser 
@@ -390,11 +394,10 @@ def p_tempEqualityExpression(p):
 
 def p_equalityExpressionNoIn(p):
 	'''equalityExpressionNoIn : relationalExpressionNoIn 
-							| relationalExpressionNoIn tempEqualityExpressionNoIn'''
-
-def p_tempEqualityExpressionNoIn(p):
-	'''tempEqualityExpressionNoIn : equalityOperator relationalExpressionNoIn
-								| equalityOperator relationalExpressionNoIn tempEqualityExpressionNoIn'''
+							| equalityExpressionNoIn OP_EQUAL relationalExpressionNoIn
+							| equalityExpressionNoIn OP_UNIVEQUAL relationalExpressionNoIn
+							| equalityExpressionNoIn OP_NOTEQUAL relationalExpressionNoIn
+							| equalityExpressionNoIn OP_NOTUNIVEQUAL relationalExpressionNoIn'''
 
 
 def p_equalityOperator(p):
