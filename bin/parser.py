@@ -51,8 +51,8 @@ def p_statement(p):
 				| switchStatement
 				| throwStatement
 				| tryStatement				
-				| ifStatement '''
-				# | expressionStatement
+				| ifStatement 
+				| expressionStatement'''
 				# | iterationStatement'''
 
 def p_statementNoIf(p):
@@ -67,8 +67,8 @@ def p_statementNoIf(p):
 				| switchStatement
 				| throwStatement
 				| tryStatement				
-				| ifStatementNoIf '''
-				# | expressionStatement
+				| ifStatementNoIf
+				| expressionStatement'''
 				# | iterationStatementNoIf'''
 
 
@@ -138,8 +138,8 @@ def p_finally(p):
 def p_emptyStatement(p):
 	'''emptyStatement : SEMI_COLON '''
 
-# def p_expressionStatement(p):
-# 	'''expressionStatement : expression_no_lbf SEMI_COLON'''
+def p_expressionStatement(p):
+	'''expressionStatement : expressionWithoutFunc SEMI_COLON'''
 
 def p_ifStatement(p):
 	'''ifStatement : IF LPAREN expression RPAREN statement
@@ -224,6 +224,10 @@ def p_initialiser(p):
 
 
 
+def p_assignmentExpressionWithoutFunc(p):
+	'''assignmentExpressionWithoutFunc : conditionalExpressionWithoutFunc
+							| leftHandSideExpressionWithoutFunc assignmentOperator assignmentExpression'''
+
 def p_assignmentExpression(p):
 	'''assignmentExpression : conditionalExpression
 							| leftHandSideExpression assignmentOperator assignmentExpression'''
@@ -244,10 +248,18 @@ def p_conditionalExpression(p):
 	'''conditionalExpression : logicalOrExpression
 							 | logicalOrExpression OP_TERNARY assignmentExpression COLON assignmentExpression '''
 
+def p_conditionalExpressionWithoutFunc(p):
+	'''conditionalExpressionWithoutFunc : logicalOrExpressionWithoutFunc
+							 | logicalOrExpressionWithoutFunc OP_TERNARY assignmentExpression COLON assignmentExpression '''
+
 
 # def p_conditionalExpressionNoIn(p):
 # 	'''conditionalExpressionNoIn : logicalOrExpressionNoIn
 # 							 | logicalOrExpressionNoIn OP_TERNARY assignmentExpression COLON assignmentExpressionNoIn '''
+
+def p_logicalOrExpressionWithoutFunc(p):
+	'''logicalOrExpressionWithoutFunc : logicalAndExpressionWithoutFunc
+							| logicalAndExpressionWithoutFunc tempLogicalOrExpression'''
 
 def p_logicalOrExpression(p):
 	'''logicalOrExpression : logicalAndExpression
@@ -274,6 +286,10 @@ def p_logicalAndExpression(p):
 	'''logicalAndExpression : bitWiseOrExpression 
 	 						| bitWiseOrExpression tempLogicalAndExpression'''
 
+def p_logicalAndExpressionWithoutFunc(p):
+	'''logicalAndExpressionWithoutFunc : bitWiseOrExpressionWithoutFunc 
+	 						| bitWiseOrExpressionWithoutFunc tempLogicalAndExpression'''
+
 def p_tempLogicalAndExpression(p):
 	'''tempLogicalAndExpression : logicalAndOperator bitWiseOrExpression 
 								| logicalAndOperator bitWiseOrExpression tempLogicalAndExpression'''
@@ -293,6 +309,10 @@ def p_logicalAndOperator(p):
 def p_bitWiseOrExpression(p):
 	'''bitWiseOrExpression : bitWiseXorExpression
  							| bitWiseXorExpression tempBitWiseOrExpression'''
+
+def p_bitWiseOrExpressionWithoutFunc(p):
+	'''bitWiseOrExpressionWithoutFunc : bitWiseXorExpressionWithoutFunc
+ 							| bitWiseXorExpressionWithoutFunc tempBitWiseOrExpression'''
 
 def p_tempBitWiseOrExpression(p):
 	'''tempBitWiseOrExpression : bitWiseOrOperator bitWiseXorExpression
@@ -314,6 +334,9 @@ def p_bitWiseXorExpression(p):
 	'''bitWiseXorExpression : bitWiseAndExpression
 							| bitWiseAndExpression tempBitWiseXorExpression'''
 
+def p_bitWiseXorExpressionWithoutFunc(p):
+	'''bitWiseXorExpressionWithoutFunc : bitWiseAndExpressionWithoutFunc
+							| bitWiseAndExpressionWithoutFunc tempBitWiseXorExpression'''
 
 def p_tempBitWiseXorExpression(p):
 	'''tempBitWiseXorExpression : bitWiseXorOperator bitWiseAndExpression
@@ -335,6 +358,10 @@ def p_bitWiseXorOperator(p):
 def p_bitWiseAndExpression(p):
 	'''bitWiseAndExpression : equalityExpression
 							| equalityExpression tempBitWiseAndExpression'''
+
+def p_bitWiseAndExpressionWithoutFunc(p):
+	'''bitWiseAndExpressionWithoutFunc : equalityExpressionWithoutFunc
+							| equalityExpressionWithoutFunc tempBitWiseAndExpression'''
 
 
 def p_tempBitWiseAndExpression(p):
@@ -358,6 +385,10 @@ def p_bitWiseAndOperator(p):
 def p_equalityExpression(p):
 	'''equalityExpression : relationalExpression 
 							 | relationalExpression tempEqualityExpression'''
+
+def p_equalityExpressionWithoutFunc(p):
+	'''equalityExpressionWithoutFunc : relationalExpressionWithoutFunc 
+							 | relationalExpressionWithoutFunc tempEqualityExpression'''
 
 def p_tempEqualityExpression(p):
 	'''tempEqualityExpression : equalityOperator relationalExpression
@@ -383,6 +414,10 @@ def p_equalityOperator(p):
 def p_relationalExpression(p):
 	'''relationalExpression :  shiftExpression
 							| shiftExpression tempRelationalExpression'''
+
+def p_relationalExpressionWithoutFunc(p):
+	'''relationalExpressionWithoutFunc :  shiftExpressionWithoutFunc
+							| shiftExpressionWithoutFunc tempRelationalExpression'''														
 
 def p_tempRelationalExpression(p):
 	'''tempRelationalExpression : relationalOperator shiftExpression
@@ -417,6 +452,10 @@ def p_shiftExpression(p):
 	'''shiftExpression : additiveExpression
 						| additiveExpression tempShiftExpression'''
 
+def p_shiftExpressionWithoutFunc(p):
+	'''shiftExpressionWithoutFunc : additiveExpressionWithoutFunc
+						| additiveExpressionWithoutFunc tempShiftExpression'''						
+
 def p_tempShiftExpression(p):
 	'''tempShiftExpression : shiftOperator additiveExpression
 							| shiftOperator additiveExpression tempShiftExpression'''
@@ -431,13 +470,21 @@ def p_additiveExpression(p):
 	'''additiveExpression  : multiplicativeExpression 
  							| multiplicativeExpression tempAdditiveExpression'''
 
+def p_additiveExpressionWithoutFunc(p):
+	'''additiveExpressionWithoutFunc  : multiplicativeExpressionWithoutFunc 
+ 							| multiplicativeExpressionWithoutFunc tempAdditiveExpression''' 							
+
 def p_tempAdditiveExpression(p):
 	'''tempAdditiveExpression : additiveOperator multiplicativeExpression
 								| additiveOperator multiplicativeExpression tempAdditiveExpression'''
 
+def p_multiplicativeExpressionWithoutFunc(p):
+	'''multiplicativeExpressionWithoutFunc : unaryExpressionWithoutFunc 
+								| unaryExpressionWithoutFunc tempMultiplicativeExpression'''
+
 def p_multiplicativeExpression(p):
 	'''multiplicativeExpression : unaryExpression 
-								| unaryExpression tempMultiplicativeExpression'''
+								| unaryExpression tempMultiplicativeExpression'''								
 
 def p_tempMultiplicativeExpression(p):
 	'''tempMultiplicativeExpression : multiplicativeOperator unaryExpression
@@ -466,19 +513,44 @@ def p_unaryExpression(p):
 					| BITWISE_NOT unaryExpression
 					| OP_NOT unaryExpression'''
 
+def p_unaryExpressionWithoutFunc(p):
+	'''unaryExpressionWithoutFunc : postFixExpressionWithoutFunc
+					| DELETE unaryExpression
+					| VOID unaryExpression
+					| TYPEOF unaryExpression
+					| OP_INCREMENT unaryExpression
+					| OP_DECREMENT unaryExpression
+					| OP_PLUS unaryExpression
+					| OP_MINUS unaryExpression
+					| BITWISE_NOT unaryExpression
+					| OP_NOT unaryExpression'''					
+
 def p_postFixExpression(p):
 	'''postFixExpression :  leftHandSideExpression 
 							| leftHandSideExpression OP_INCREMENT
 							| leftHandSideExpression OP_DECREMENT'''
+
+def p_postFixExpressionWithoutFunc(p):
+	'''postFixExpressionWithoutFunc :  leftHandSideExpressionWithoutFunc
+							| leftHandSideExpressionWithoutFunc OP_INCREMENT
+							| leftHandSideExpressionWithoutFunc OP_DECREMENT'''
 
 
 def p_leftHandSideExpression(p):
 	'''leftHandSideExpression : newExpression
 								| callExpression'''
 
+def p_leftHandSideExpressionWithoutFunc(p):
+	'''leftHandSideExpressionWithoutFunc : newExpressionWithoutFunc
+								| callExpressionWithoutFunc'''
+
 def p_newExpression(p):
 	'''newExpression : memberExpression
 						| NEW newExpression'''
+
+def p_newExpressionWithoutFunc(p):
+	'''newExpressionWithoutFunc : memberExpressionWithoutFunc
+						| NEW newExpression'''						
 
 def p_memberExpression(p):
 	'''memberExpression : functionExpression 
@@ -486,6 +558,12 @@ def p_memberExpression(p):
 							| memberExpression LSQUARE expression RSQUARE
 							| memberExpression DOT IDENTIFIER
 							| NEW memberExpression arguements '''
+
+def p_memberExpressionWithoutFunc(p):
+	'''memberExpressionWithoutFunc : primaryExpressionWithoutFunc 
+							| memberExpressionWithoutFunc LSQUARE expression RSQUARE
+							| memberExpressionWithoutFunc DOT IDENTIFIER
+							| NEW memberExpression arguements '''							
 
 
 
@@ -499,6 +577,10 @@ def p_memberExpression(p):
 def p_expression(p):
 	'''expression : assignmentExpression 
 					| expression COMMA assignmentExpression '''
+
+def p_expressionWithoutFunc(p):
+	'''expressionWithoutFunc : assignmentExpressionWithoutFunc 
+					| expressionWithoutFunc COMMA assignmentExpression '''
 
 # # def p_expressionNoIn(p):
 # # 	'''expressionNoIn : assignmentExpressionNoIn 
@@ -515,6 +597,14 @@ def p_primaryExpression(p):
 						 | IDENTIFIER 
 						 | literal 
 						 | arrayLiteral '''
+
+def p_primaryExpressionWithoutFunc(p):
+	'''primaryExpressionWithoutFunc : THIS
+						 | LPAREN expression RPAREN
+						 | IDENTIFIER 
+						 | literal 
+						 | arrayLiteral '''
+
 
 def p_literal(p):
 	'''literal : NUMBER 
@@ -579,6 +669,12 @@ def p_callExpression(p):
 						| callExpression arguements
 						| callExpression LSQUARE expression RSQUARE
 						| callExpression DOT IDENTIFIER'''
+
+def p_callExpressionWithoutFunc(p):
+	'''callExpressionWithoutFunc : memberExpressionWithoutFunc arguements 
+						| callExpressionWithoutFunc arguements
+						| callExpressionWithoutFunc LSQUARE expression RSQUARE
+						| callExpressionWithoutFunc DOT IDENTIFIER'''
 
 # def p_callExpressionForIn(p):
 # 	'''callExpressionForIn : memberExpressionForIn arguements 
