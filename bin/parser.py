@@ -50,10 +50,27 @@ def p_statement(p):
 				| labelledStatement
 				| switchStatement
 				| throwStatement
-				| tryStatement'''
+				| tryStatement				
+				| ifStatement '''
 				# | expressionStatement
-				# | ifStatement
 				# | iterationStatement'''
+
+def p_statementNoIf(p):
+	'''statementNoIf : block
+				| emptyStatement
+				| variableStatement
+				| continueStatement
+				| breakStatement
+				| returnStatement
+				| withStatementNoIf
+				| labelledStatementNoIf
+				| switchStatement
+				| throwStatement
+				| tryStatement				
+				| ifStatementNoIf '''
+				# | expressionStatement
+				# | iterationStatementNoIf'''
+
 
 def p_continueStatement(p):
 	'''continueStatement : CONTINUE SEMI_COLON
@@ -70,6 +87,9 @@ def p_returnStatement(p):
 
 def p_withStatement(p):
 	'''withStatement : WITH LPAREN expression RPAREN statement'''
+
+def p_withStatementNoIf(p):
+	'''withStatementNoIf : WITH LPAREN expression RPAREN statementNoIf'''
 
 def p_switchStatement(p):
 	'''switchStatement : SWITCH LPAREN expression RPAREN caseBlock'''
@@ -98,6 +118,9 @@ def p_caseClause(p):
 def p_labelledStatement(p):
 	'''labelledStatement : IDENTIFIER COLON statement'''
 
+def p_labelledStatementNoIf(p):
+	'''labelledStatementNoIf : IDENTIFIER COLON statementNoIf'''
+
 def p_throwStatement(p):
 	'''throwStatement : THROW expression SEMI_COLON'''
 
@@ -118,9 +141,12 @@ def p_emptyStatement(p):
 # def p_expressionStatement(p):
 # 	'''expressionStatement : expression_no_lbf SEMI_COLON'''
 
-# def p_ifStatement(p):
-# 	'''ifStatement : IF LPAREN expression RPAREN statement
-# 					| IF LPAREN expression RPAREN statement ELSE statement'''
+def p_ifStatement(p):
+	'''ifStatement : IF LPAREN expression RPAREN statement
+					| IF LPAREN expression RPAREN statementNoIf ELSE statement'''
+
+def p_ifStatementNoIf(p):
+	'''ifStatementNoIf : IF LPAREN expression RPAREN statementNoIf ELSE statementNoIf'''
 
 # def p_iterationStatement(p):
 # 	'''iterationStatement : DO statement WHILE LPAREN expression RPAREN 
@@ -141,6 +167,24 @@ def p_emptyStatement(p):
 # 							| FOR LPAREN VAR variableDeclarationNoIn IN expression RPAREN statement
 # 							| FOR LPAREN leftHandSideExpressionForIn IN expression RPAREN statement'''
 
+# def p_iterationStatementNoIf(p):
+# 	'''iterationStatement : DO statement WHILE LPAREN expression RPAREN 
+# 							| DO statement WHILE LPAREN expression RPAREN SEMI_COLON
+# 							| WHILE LPAREN expression RPAREN statementNoIf
+# 							| FOR LPAREN SEMI_COLON SEMI_COLON RPAREN statementNoIf
+# 							| FOR LPAREN SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+# 							| FOR LPAREN SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+# 							| FOR LPAREN SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+# 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON RPAREN statementNoIf
+# 							| FOR LPAREN expressionNoIn SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+# 							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+# 							| FOR LPAREN expressionNoIn SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON RPAREN statementNoIf
+# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON SEMI_COLON expression RPAREN statementNoIf
+# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON RPAREN statementNoIf
+# 							| FOR LPAREN VAR variableDeclarationList SEMI_COLON expression SEMI_COLON expression RPAREN statementNoIf
+# 							| FOR LPAREN VAR variableDeclarationNoIn IN expression RPAREN statementNoIf
+# 							| FOR LPAREN leftHandSideExpressionForIn IN expression RPAREN statementNoIf'''
 
 # def p_leftHandSideExpressionForIn(p):
 # 	'''leftHandSideExpressionForIn : callExpressionForIn
