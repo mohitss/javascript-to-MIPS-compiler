@@ -1,4 +1,4 @@
-module.exports = function arraypairsum (k, array) {
+function arraypairsum (k, array) {
   var hash = {};
   var pairs = [];
 
