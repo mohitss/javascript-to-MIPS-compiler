@@ -1,6 +1,6 @@
 function arraypairsum (k, array) {
   var hash = {};
-  var pairs = [];
+  var pairs = [1];
 
   // Iterate over the array, tracking the times each number appears. For each
   // new number, we calculate the difference to `k` and look up the number of

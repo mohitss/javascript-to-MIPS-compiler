@@ -1,14 +1,10 @@
 module.exports = function combineTwoStrings (str1, str2, str3) {
-  // Simple optimisation to break when impossible.
-  if ((str1.length + str2.length) !== str3.length) {
+if ((str1.length + str2.length) !== str3.length) {
     return false;
   }
-
   return isCombineTwoStrings(str1, str2, str3);
 };
-
 function isCombineTwoStrings (str1, str2, str3) {
-  // No more solutions to find.
   if (str3.length === 0) {
     return true;
   }
