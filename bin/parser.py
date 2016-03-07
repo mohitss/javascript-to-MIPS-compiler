@@ -888,11 +888,17 @@ def p_callExpressionWithoutFunc(p):
 	generate_output(p.slice)
 
 def p_error(p):
-	if p:
-		print "Syntax error at line " + str(p.lineno)
-		print 'Token : {}'.format(p)
+	tok = lexer.token()
+	if not tok:
+		print "End of File"
+		return
 	else:
-		print("Syntax error!")
+		print "Syntax error at line " + str(p.lineno)
+		while True:		
+			tok = lexer.token()
+			if not tok or tok.type == 'SEMI_COLON': 
+				break
+		parser.restart()
 
 
 parser = yacc.yacc()
