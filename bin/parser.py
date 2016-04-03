@@ -42,6 +42,7 @@ def p_empty(p):
 def p_start(p):
 	'''start : sourceElements
 			| empty'''
+	p[0] = {}
 	#generate_output(p.slice)
 
 def p_sourceElements(p):
@@ -987,22 +988,62 @@ def p_memberExpressionWithoutFunc(p):
 def p_expression(p):
 	'''expression : assignmentExpression
 					| expression COMMA assignmentExpression '''
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2:
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	else:
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 	#generate_output(p.slice)
 
 def p_expressionWithoutFunc(p):
 	'''expressionWithoutFunc : assignmentExpressionWithoutFunc
 					| expressionWithoutFunc COMMA assignmentExpression '''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2:
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	else:
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 def p_expressionNoIn(p):
 	'''expressionNoIn : assignmentExpressionNoIn
 					| assignmentExpressionNoIn tempExpressionNoIn'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2:
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	else:
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 def p_tempExpressionNoIn(p):
 	'''tempExpressionNoIn : COMMA assignmentExpressionNoIn
 						| COMMA assignmentExpressionNoIn tempExpressionNoIn'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 3:
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+	else:
+		p[0]["code"] = p[2]["code"] + p[3]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
 
 def p_primaryExpression(p):
 	'''primaryExpression : THIS
@@ -1012,6 +1053,17 @@ def p_primaryExpression(p):
 						 | literal
 						 | arrayLiteral '''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 4:
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+	else if p[1] == "IDENTIFIER":
+
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 def p_primaryExpressionWithoutFunc(p):
 	'''primaryExpressionWithoutFunc : THIS
@@ -1032,7 +1084,11 @@ def p_literal(p):
 				| TRUE
 				| FALSE'''
 	#generate_output(p.slice)
-
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2:
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 def p_arrayLiteral(p):
 	'''arrayLiteral : LSQUARE RSQUARE
@@ -1041,6 +1097,16 @@ def p_arrayLiteral(p):
 					| LSQUARE elementList COMMA elison RSQUARE
 					| LSQUARE elementList COMMA RSQUARE'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 4 || len(p) == 5:
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+	elif len(p) == 6:
+		p[0]["code"] = p[2]["code"] + p[4]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
 
 def p_elementList(p):
 	'''elementList : elison assignmentExpression
@@ -1048,25 +1114,67 @@ def p_elementList(p):
 					| elementList COMMA elison assignmentExpression
 					| elementList COMMA assignmentExpression'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2 :
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 3:
+		p[0]["code"] = p[2]["code"] 
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+
+	elif len(p) == 4:
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[3]["place"]
+		p[0]["type"] = p[3]["type"]
+	elif len(p) == 5:
+		p[0]["code"] = p[1]["code"] + p[4]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 def p_elison(p):
 	'''elison : COMMA
 				| elison COMMA'''
+	p[0] = {}
+	p[0]["code"] = []
 	#generate_output(p.slice)
 
 def p_objectLiteral(p):
 	'''objectLiteral : OPEN_BRACE CLOSE_BRACE
 					| OPEN_BRACE propertyNameAndValueList CLOSE_BRACE'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 4 :
+		p[0]["code"] = p[3]["code"]
+		p[0]["place"] = p[3]["place"]
+		p[0]["type"] = p[3]["type"]
 
 def p_propertyNameAndValueList(p):
 	'''propertyNameAndValueList : propertyNameAndValue
 								| propertyNameAndValue COMMA propertyNameAndValueList'''
+
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2 :
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 4:
+		p[0]["code"] = p[1]["code"] + p[3]["code"] 
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
 	#generate_output(p.slice)
 
 def p_propertyNameAndValue(p):
 	'''propertyNameAndValue : propertyName COLON assignmentExpression'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = p[1]["code"] + p[3]["code"]
+	p[0]["place"] = p[1]["place"]
+	p[0]["type"] = p[1]["type"]
 
 
 def p_propertyName(p):
@@ -1086,17 +1194,48 @@ def p_arguements(p):
 	'''arguements : LPAREN RPAREN
 				| LPAREN arguementList RPAREN'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 4 :
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
 
 def p_arguementList(p):
 	'''arguementList : assignmentExpression
 					| assignmentExpression COMMA arguementList'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 2 :
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 2:
+		p[0]["code"] = p[2]["code"] 
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
 
 def p_callExpression(p):
 	'''callExpression : memberExpression arguements
 						| callExpression arguements
 						| callExpression LSQUARE expression RSQUARE
 						| callExpression DOT IDENTIFIER'''
+
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 3 :
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 4:
+		p[0]["code"] = p[1]["code"] 
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 5:
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 	#generate_output(p.slice)
 
 def p_callExpressionWithoutFunc(p):
@@ -1105,6 +1244,20 @@ def p_callExpressionWithoutFunc(p):
 						| callExpressionWithoutFunc LSQUARE expression RSQUARE
 						| callExpressionWithoutFunc DOT IDENTIFIER'''
 	#generate_output(p.slice)
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 3 :
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 4:
+		p[0]["code"] = p[1]["code"] 
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	elif len(p) == 5:
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 def p_error(p):
 	tok = lexer.token()
