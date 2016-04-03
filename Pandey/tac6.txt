@@ -1,0 +1,16 @@
+data,a,int,0
+data,b,int,10
+data,c,int,20
+data,d,int,40
+data,e,int,2
+data,f,int,0
+main
+/,g,b,a
++,h,g,a
+*,i,d,e
++,eval,h,i
+*,j,c,d
++,eval,j,eval
+print_intv,eval
+=,k,f
+ret

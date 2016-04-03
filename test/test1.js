@@ -1,3 +1,4 @@
+var nand;
 var library = [   
 {  
     title: 'Bill Gates',  
