@@ -14,18 +14,18 @@ class regalloc:
 				'$t1' : None,
 				'$t2' : None,
 				'$t3' : None,
-				# '$t4' : None,
-				# '$t5' : None,
-				# '$t6' : None,
-				# '$t7' : None,
-				# '$s0' : None,   #Callee Saved Registers
-				# '$s1' : None,
-				# '$s2' : None,
-				# '$s3' : None,
-				# '$s4' : None, 
-				# '$s5' : None, #Removed to be used in the functions
-				# '$s6' : None,
-				# '$s7' : None,
+				'$t4' : None,
+				'$t5' : None,
+				'$t6' : None,
+				'$t7' : None,
+				'$s0' : None,   #Callee Saved Registers
+				'$s1' : None,
+				'$s2' : None,
+				'$s3' : None,
+				'$s4' : None, 
+				'$s5' : None, #Removed to be used in the functions
+				'$s6' : None,
+				'$s7' : None,
 				}
 		self.freeRegisters = [ reg for reg in self.Registers.keys() ] #Set all the registers to free
 		self.variables = {}
@@ -40,12 +40,12 @@ class regalloc:
 			line = lines[end].strip()
 			tac = line.split(",")
 			if( tac[0] == "+"or tac[0] == "-" or tac[0] == "*" or tac[0] == "/" or tac[0] == "%" or tac[0] == "<<" or tac[0] == ">>"  or tac[0] == "^" or tac[0] == "|" or tac[0] == "&"):
-				local_dict.update({tac[1]:-1})
+				local_dict.update({tac[1]:100000})
 				local_dict.update({tac[2]:end})
 				local_dict.update({tac[3]:end})
 
 			elif(tac[0]=="=" ):
-				local_dict.update({tac[1]:-1})
+				local_dict.update({tac[1]:100000})
 				local_dict.update({tac[2]:end})
 			elif(tac[0] == "ifgoto"  ):
 				local_dict.update({tac[2]:end})
@@ -86,9 +86,9 @@ class regalloc:
 		for key,value in self.Registers.iteritems():
 			if value!= None  and regex.match(value):
 				code += "\tsw "+key+","+value+"\n"
-				self.freeRegisters.append(reg)
-				self.registerInUse.remove(reg)
-				self.Registers[reg] = None
+				self.freeRegisters.append(key)
+				self.registerInUse.remove(key)
+				self.Registers[key] = None
 		return code
 
 	def getreg(self,variable,LINE_NO,dictionary,filename,current_basic_block,arr=False):
@@ -145,22 +145,26 @@ class regalloc:
 			next_register='None'
 			for s in list1:
 				if s[0] in list2:
-					break
+					pass
 				else:
 					next_register= s[0]
 			# print next_register
 			if next_register != 'None':
 				for key,value in self.Registers.iteritems():
 					if value == next_register:
+						self.Registers[key] = variable
+						self.variables[variable] = key
 						code = "\tsw "+ key +","+ value+"\n"
 						code += "\tlw " + key + "," + variable
+
 						return (key,code)
 
 			for key,value in self.Registers.iteritems():
 				if value in list2:
 					pass
 				else:
+					self.Registers[key] = variable
+					self.variables[variable] = key
 					code = "\tsw "+ key +","+ value+"\n"
 					code += "\tlw " + key + "," + variable
 					return (key,code)
-

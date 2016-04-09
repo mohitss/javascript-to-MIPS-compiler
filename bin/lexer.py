@@ -168,13 +168,15 @@ def t_IDENTIFIER(t):
 	t.type = reserved.get(t.value,'IDENTIFIER')	# Check for reserved words
 	return t
 
-def t_NUMBER(t):           
-	r'([1-9][0-9]*(\.[0-9]+)?)|0+'
-	return t
 
 def t_EXPO_NUMBER(t):
 	r'[1-9][0-9]*(\.[0-9]+)?e[+|-]?[0-9]+(\.[0-9]+)?'
 	return t
+
+def t_NUMBER(t):           
+	r'([1-9][0-9]*(\.[0-9]+)?)|0+'
+	return t
+
 
 def t_OCTAL_NUMBER(t):
 	r'0[0-7]+'

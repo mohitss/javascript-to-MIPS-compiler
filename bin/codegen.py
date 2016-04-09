@@ -312,8 +312,14 @@ def codegen(filename):
 		
 		#print int ~ variable
 		elif tac[0] == "print_intv":
+			ret_val=register_handler.getreg(tac[1],LINE_NO,dictionary,filename,current_basic_block)
 			assemblycode.append("\tli $v0,1")
-			assemblycode.append("\tlw $a0,"+tac[1])
+			if len(ret_val) == 1:
+				reg1 = ret_val[0]
+			else:
+				assemblycode.append(ret_val[1])
+				reg1 = ret_val[0]
+			assemblycode.append("\tmove $a0,"+reg1)
 			assemblycode.append("\tsyscall")
 
 		#print string ~ variable
@@ -409,8 +415,11 @@ def codegen(filename):
 
 		#return ~
 		elif tac[0] == "ret":
-
 			assemblycode.append("\tjr $ra")
+
+		#return with a value
+		elif tac[0] == "ret_value":
+			assemblycode.append("\tlw $v0,"+tac[1])
 
 		#call function ~
 		elif tac[0] == "call":
@@ -443,12 +452,10 @@ def codegen(filename):
 
 		#main label ~
 		elif tac[0] == "main":
-
 			assemblycode.append(".text\nmain:")
 
 		#label label ~
 		elif tac[0] == "label":
-
 			assemblycode.append(tac[1]+":")
 
 		#condition if goto ~

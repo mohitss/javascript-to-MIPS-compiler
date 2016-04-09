@@ -1,0 +1,432 @@
+<span style='color:red;'>start</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>iterationStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>iterationStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;while&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>expression</span>&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>block</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>block</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>callExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>callExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>arguements</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>arguements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>arguementList</span>&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;&nbsp;<br>
+<span style='color:red;'>arguementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;log&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;console&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>tempMultiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>tempMultiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;2&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;/&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>ifStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>ifStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;if&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>expression</span>&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>block</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>block</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>iterationStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>iterationStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;for&nbsp;&nbsp;&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>block</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>block</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;{&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;}&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>callExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>callExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>arguements</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>arguements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;(&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>arguementList</span>&nbsp;&nbsp;&nbsp;&nbsp;)&nbsp;&nbsp;<br>
+<span style='color:red;'>arguementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;counter&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;log&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;console&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statementList</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;var&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;counter&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>initialiser</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>initialiser</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;90&nbsp;&nbsp;<br>
+<span style='color:red;'>statementList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>tempAdditiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>tempAdditiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;1&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;+&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;x&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;x&nbsp;&nbsp;<br>
+<span style='color:red;'>expression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;<=&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;10&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;x&nbsp;&nbsp;<br>
+<span style='color:red;'>expression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;>=&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;1&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;var&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>initialiser</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>initialiser</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;100&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>tempShiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>tempShiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;3&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<<&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;var&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;y&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>initialiser</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>initialiser</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;true&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>expressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>tempShiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>tempShiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;2&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;>>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;x&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpressionWithoutFunc</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;x&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElements</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>sourceElement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>statement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>statement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableStatement</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;var&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;&nbsp;&nbsp;;&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclarationList</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>variableDeclaration</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;x&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>initialiser</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>initialiser</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>assignmentExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>conditionalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>logicalAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseOrExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseXorExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>bitWiseAndExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>equalityExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>relationalExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>tempShiftExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>tempShiftExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>shiftOperator</span>&nbsp;&nbsp;&nbsp;&nbsp;<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;3&nbsp;&nbsp;<br>
+<span style='color:red;'>shiftOperator</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<<&nbsp;&nbsp;<br>
+<span style='color:red;'>additiveExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>multiplicativeExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>unaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>postFixExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>leftHandSideExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>newExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>newExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>memberExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>primaryExpression</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;<span style='color:red;'>literal</span>&nbsp;&nbsp;<br>
+<span style='color:red;'>literal</span>&nbsp;&nbsp;==>>&nbsp;&nbsp;2&nbsp;&nbsp;<br>
