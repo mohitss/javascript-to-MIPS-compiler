@@ -1,16 +1,10 @@
-var x = 2 << 3;
-x = x >> 2;
-var y = true;
-y = y << 3;
-var y = 100;
-while(y>=1){
-	if(x<=10){
-		x = x+1;
-		var counter = 90;
-		for(;;){
-			console.log(counter);
-		}
-	}
-	y = y/2;
-	console.log(y);
+var i=6;
+while(i <= 8){
+        if (i>=0){
+        	console.log(1);
+        }
+        else {
+            console.log(0);
+        }
+        i = i+1;
 }
