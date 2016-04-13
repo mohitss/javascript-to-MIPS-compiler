@@ -82,17 +82,21 @@ def p_start(p):
 				temp_count += 1
 				var = temp_dict[int(codes[0])]
 			write = var
-		write += ","
-		if not isinstance(codes[1],float) and not isinstance(codes[1],int):
-			write += str(codes[1])
-		else:
-			try :
-				var = temp_dict[int(codes[1])]
-			except:
-				temp_dict[int(codes[1])] = "temp_"+str(temp_count)
-				temp_count += 1
-				var = temp_dict[int(codes[1])]
-			write += var
+		try:
+			if codes[1] != "":
+				write += ","
+				if not isinstance(codes[1],float) and not isinstance(codes[1],int):
+					write += str(codes[1])
+				else:
+					try :
+						var = temp_dict[int(codes[1])]
+					except:
+						temp_dict[int(codes[1])] = "temp_"+str(temp_count)
+						temp_count += 1
+						var = temp_dict[int(codes[1])]
+					write += var
+		except:
+			pass
 		try:
 			if codes[2] != "":
 				write+=","
@@ -167,6 +171,8 @@ def p_sourceElement(p):
 	'''sourceElement : functionDeclaration
 						| statement'''
 	p[0] = {}
+	print p
+	print p[1]
 	p[0]["code"] = p[1]["code"]
 	# print p[0]  
 	
@@ -187,7 +193,7 @@ def p_functionDeclaration(p):
 		p[0]["code"] += p[6]["code"]
 		ident = symbTab.lookup(p[2])		
 
-	p[0]["code"] += [["ret"]]
+	p[0]["code"] += [["ret",""]]
 	p[0]["code"] += [["label",p[2]+"End"]]
 
 	generate_output(p.slice)
@@ -231,7 +237,7 @@ def p_statement(p):
 				| expressionStatement
 				| iterationStatement'''
 	p[0] = {}
-	p[0] = dict(p[1])
+	p[0] = p[1]
 	# print "statement ",p[0]  
 	
 	generate_output(p.slice)
@@ -271,6 +277,9 @@ def p_breakStatement(p):
 def p_returnStatement(p):
 	'''returnStatement :  RETURN SEMI_COLON
 						| RETURN expression SEMI_COLON'''
+	p[0]={}
+	if (len(p)==3):
+		p[0]["code"]=[["ret",""]]
 	generate_output(p.slice)
 
 
@@ -1834,6 +1843,8 @@ def p_additiveExpression(p):
 		elif temptype == "boolean":
 			p[0]["code"] += [[p[2]["operator"],p[0]["place"],p[1]["place"],p[2]["place"]]]		
 			p[0]["type"] = "number"
+		else:
+			p[0]["type"] = p[1]["type"]
 	generate_output(p.slice)
 
 
@@ -1857,6 +1868,9 @@ def p_additiveExpressionWithoutFunc(p):
 		elif temptype == "boolean":
 			p[0]["code"] += [[p[2]["operator"],p[0]["place"],p[1]["place"],p[2]["place"]]]		
 			p[0]["type"] = "number"
+		else:
+			p[0]["type"] = p[1]["type"]
+
 
 	generate_output(p.slice)
 
@@ -1883,6 +1897,7 @@ def p_tempAdditiveExpression(p):
 		elif temptype == "boolean":
 			p[0]["code"] += [[p[3]["operator"],p[0]["place"],p[2]["place"],p[3]["place"]]]		
 			p[0]["type"] = "number"
+
 	generate_output(p.slice)
 
 
@@ -1899,14 +1914,15 @@ def p_multiplicativeExpressionWithoutFunc(p):
 		p[0]["code"] = p[1]["code"] + p[2]["code"]
 		temptype = getHigherPrecedence(p[1]["type"],p[2]["type"])
 		if temptype== "string":
-			pass
+			p[0]["type"] = "string"
 		elif temptype == "number":
 			p[0]["code"] += [[p[2]["operator"],p[0]["place"],p[1]["place"],p[2]["place"]]]
 			p[0]["type"] = "number"
 		elif temptype == "boolean":
 			p[0]["code"] += [[p[2]["operator"],p[0]["place"],p[1]["place"],p[2]["place"]]]		
 			p[0]["type"] = "number"
-
+		else:
+			p[0]["type"] = p[1]["type"]
 	generate_output(p.slice)
 
 
@@ -1930,6 +1946,8 @@ def p_multiplicativeExpression(p):
 		elif temptype == "boolean":
 			p[0]["code"] += [[p[2]["operator"],p[0]["place"],p[1]["place"],p[2]["place"]]]		
 			p[0]["type"] = "number"
+		else:
+			p[0]["type"] = p[1]["type"]
 	generate_output(p.slice)
 
 
