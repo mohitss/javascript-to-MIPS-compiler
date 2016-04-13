@@ -57,33 +57,98 @@ def p_start(p):
 			| empty'''
 	p[0] = {}
 	p[0]["code"] = p[1]["code"]
-	final_code = ""
-	f = open('output.s','w')
+	f = open('output.tac','w')
+	t = int(tac.newTemp().split("_")[1])
+	data_write = ""
+	text_write = ""
+	for i in range(0,t):
+		write = "data,"+"t_"+str(i)+",int,0\n"
+		data_write += write
+	for key,value in symbTab.symbol.iteritems():
+		if value["identifierType"] == "number" or value["identifierType"] == "boolean":
+			write = "data,"+key+",int,0\n"	
+			data_write += write
+	temp_count =  0
+	temp_dict = {}
 	for codes in p[0]["code"]:
-		print codes
-		write = str(codes[0])
-		try:
-			if codes[1] != "":
-				write+=","+str(codes[1])
-		except:
-			pass
+		# print codes
+		if not isinstance(codes[0],float) and not isinstance(codes[0],int):
+			write = str(codes[0])
+		else:
+			try :
+				var = temp_dict[int(codes[0])]
+			except:
+				temp_dict[int(codes[0])] = "temp_"+str(temp_count)
+				temp_count += 1
+				var = temp_dict[int(codes[0])]
+			write = var
+		write += ","
+		if not isinstance(codes[1],float) and not isinstance(codes[1],int):
+			write += str(codes[1])
+		else:
+			try :
+				var = temp_dict[int(codes[1])]
+			except:
+				temp_dict[int(codes[1])] = "temp_"+str(temp_count)
+				temp_count += 1
+				var = temp_dict[int(codes[1])]
+			write += var
 		try:
 			if codes[2] != "":
-				write+=","+str(codes[2])
+				write+=","
+				if not isinstance(codes[2],float) and not isinstance(codes[2],int):
+					write += str(codes[2])
+				else:
+					try :
+						var = temp_dict[int(codes[2])]
+					except:
+						temp_dict[int(codes[2])] = "temp_"+str(temp_count)
+						temp_count += 1
+						var = temp_dict[int(codes[2])]
+					write += var
 		except:
 			pass
 		try:
 			if codes[3] != "":
-				write+=","+str(codes[3])
+				write+=","
+				if not isinstance(codes[3],float) and not isinstance(codes[3],int):
+					write += str(codes[3])
+				else:
+					try :
+						var = temp_dict[int(codes[3])]
+					except:
+						temp_dict[int(codes[3])] = "temp_"+str(temp_count)
+						temp_count += 1
+						var = temp_dict[int(codes[3])]
+					write += var
 		except:
 			pass
 		try:
 			if codes[4] != "":
-				write+=","+str(codes[4])
+				write+=","
+				if not isinstance(codes[4],float) and not isinstance(codes[4],int):
+					write += str(codes[4])
+				else:
+					try :
+						var = temp_dict[int(codes[4])]
+					except:
+						temp_dict[int(codes[4])] = "temp_"+str(temp_count)
+						temp_count += 1
+						var = temp_dict[int(codes[4])]
+					write += var		
 		except:
 			pass
-		print write
-		f.write(write+"\n")
+		# print write
+		text_write += write+"\n"
+	for key,value in temp_dict.iteritems():
+		write = "data,"+value+",int,"+str(key)+"\n"
+		data_write += write
+	f.write(".data\n")
+	f.write(data_write)
+	f.write(".text\n")
+	f.write("main\n")
+	f.write(text_write)
+	f.write("exit\n")
 	f.close()
 	generate_output(p.slice)
 
@@ -314,6 +379,7 @@ def p_expressionStatement(p):
 	else:
 		p[0]=p[1]	
 		print "exp 0",p[1]
+
 	generate_output(p.slice)
 
 
@@ -486,7 +552,7 @@ def p_iterationStatement(p):
 		p[0]["code"] += [["ifgoto","beq",p[5]["place"],0,"truth"+while_label]]
 		p[0]["code"] += [["goto","after_for_"+while_label]]	
 		p[0]["code"] += [["label","truth"+while_label]]	
-		p[0]["code"] += p[8]["code"]
+		p[0]["code"] += p[9]["code"]
 		p[0]["code"] += p[7]["code"]
 		p[0]["code"] += [["goto","before_for_"+while_label]]
 		p[0]["code"] += [["label","after_for_"+while_label]]
@@ -620,7 +686,7 @@ def p_iterationStatementNoIf(p):
 		p[0]["code"] += [["ifgoto","beq",p[5]["place"],0,"truth"+while_label]]
 		p[0]["code"] += [["goto","after_for_"+while_label]]	
 		p[0]["code"] += [["label","truth"+while_label]]	
-		p[0]["code"] += p[8]["code"]
+		p[0]["code"] += p[9]["code"]
 		p[0]["code"] += p[7]["code"]
 		p[0]["code"] += [["goto","before_for_"+while_label]]
 		p[0]["code"] += [["label","after_for_"+while_label]]
@@ -831,8 +897,15 @@ def p_conditionalExpression(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
-
+		p[0]["else"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		p[0]["code"] = p[1]["code"]
+		p[0]["code"] += [["ifgoto","beq",p[1]["place"],0,p[0]["else"]]]
+		p[0]["code"] += p[3]["code"]
+		p[0]["code"] += [["goto",p[0]["after"]]]
+		p[0]["code"] += [["label",p[0]["else"]]]
+		p[0]["code"] += p[5]["code"]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
@@ -845,9 +918,15 @@ def p_conditionalExpressionWithoutFunc(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
-
-
+		p[0]["else"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		p[0]["code"] = p[1]["code"]
+		p[0]["code"] += [["ifgoto","beq",p[1]["place"],0,p[0]["else"]]]
+		p[0]["code"] += p[3]["code"]
+		p[0]["code"] += [["goto",p[0]["after"]]]
+		p[0]["code"] += [["label",p[0]["else"]]]
+		p[0]["code"] += p[5]["code"]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
@@ -861,7 +940,15 @@ def p_conditionalExpressionNoIn(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["else"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		p[0]["code"] = p[1]["code"]
+		p[0]["code"] += [["ifgoto","beq",p[1]["place"],0,p[0]["else"]]]
+		p[0]["code"] += p[3]["code"]
+		p[0]["code"] += [["goto",p[0]["after"]]]
+		p[0]["code"] += [["label",p[0]["else"]]]
+		p[0]["code"] += p[5]["code"]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
@@ -869,13 +956,26 @@ def p_logicalOrExpressionWithoutFunc(p):
 	'''logicalOrExpressionWithoutFunc : logicalAndExpressionWithoutFunc
 							| logicalAndExpressionWithoutFunc tempLogicalOrExpression'''
 	p[0] = {}
-	print "p1is ",p[1]
+	# print "p1is ",p[1]
 	if len(p) == 2:
 		p[0]["code"] = p[1]["code"]
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["type"] = p[1]["type"]
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["one"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[1]["place"]
+		temp2 = p[2]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,1,p[0]["one"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,1,p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
@@ -888,7 +988,20 @@ def p_logicalOrExpression(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["type"] = p[1]["type"]
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["one"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[1]["place"]
+		temp2 = p[2]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,1,p[0]["one"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,1,p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
@@ -901,187 +1014,319 @@ def p_logicalOrExpressionNoIn(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["type"] = p[1]["type"]
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["one"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[1]["place"]
+		temp2 = p[2]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,1,p[0]["one"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,1,p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
 def p_tempLogicalOrExpression(p):
 	'''tempLogicalOrExpression : logicalOrOperator logicalAndExpression
 								| logicalOrOperator logicalAndExpression tempLogicalOrExpression'''
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 3:
+		p[0]["code"] = p[2]["code"]
+		p[0]["type"] = p[2]["type"]
+		p[0]["place"] = p[2]["place"]
+	else:
+		p[0]["code"] = p[2]["code"] + p[3]["code"]
+		p[0]["type"] = p[2]["type"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["one"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[2]["place"]
+		temp2 = p[3]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,1,p[0]["one"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,1,p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
 def p_tempLogicalOrExpressionNoIn(p):
 	'''tempLogicalOrExpressionNoIn : logicalOrOperator logicalAndExpressionNoIn
 								| logicalOrOperator logicalAndExpressionNoIn tempLogicalOrExpressionNoIn'''
+	p[0] = {}
+	p[0]["code"] = []
+	if len(p) == 3:
+		p[0]["code"] = p[2]["code"]
+		p[0]["type"] = p[2]["type"]
+		p[0]["place"] = p[2]["place"]
+	else:
+		p[0]["code"] = p[2]["code"] + p[3]["code"]
+		p[0]["type"] = p[2]["type"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["one"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[2]["place"]
+		temp2 = p[3]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,1,p[0]["one"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,1,p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["one"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["label",p[0]["after"]]]
 	generate_output(p.slice)
 
 
 def p_logicalOrOperator(p):
 	'''logicalOrOperator : OP_OR '''
+	p[0] = {}
+
 	generate_output(p.slice)
 
 def p_logicalAndExpression(p):
 	'''logicalAndExpression : bitWiseOrExpression
 	 						| bitWiseOrExpression tempLogicalAndExpression'''
-	p[0] = {}
+	p[0]={}
+	p[0]["code"] = []
 	if len(p) == 2:
 		p[0]["code"] = p[1]["code"]
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["type"] = p[1]["type"]
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["zero"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[1]["place"]
+		temp2 = p[2]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,0,p[0]["zero"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,0,p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["label",p[0]["after"]]]	
 	generate_output(p.slice)
 
 
 def p_logicalAndExpressionWithoutFunc(p):
 	'''logicalAndExpressionWithoutFunc : bitWiseOrExpressionWithoutFunc
 	 						| bitWiseOrExpressionWithoutFunc tempLogicalAndExpression'''
-	p[0] = {}
+	p[0]={}
+	p[0]["code"] = []
 	if len(p) == 2:
 		p[0]["code"] = p[1]["code"]
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
-	generate_output(p.slice)
-
-
-def p_tempLogicalAndExpression(p):
-	'''tempLogicalAndExpression : logicalAndOperator bitWiseOrExpression
-								| logicalAndOperator bitWiseOrExpression tempLogicalAndExpression'''
+		p[0]["type"] = p[1]["type"]
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["zero"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[1]["place"]
+		temp2 = p[2]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,0,p[0]["zero"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,0,p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["label",p[0]["after"]]]	
 	generate_output(p.slice)
 
 
 def p_logicalAndExpressionNoIn(p):
 	'''logicalAndExpressionNoIn : bitWiseOrExpressionNoIn
 							| bitWiseOrExpressionNoIn tempLogicalAndExpressionNoIn'''
-	p[0] = {}
+	p[0]={}
+	p[0]["code"] = []
 	if len(p) == 2:
 		p[0]["code"] = p[1]["code"]
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["type"] = p[1]["type"]
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["zero"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[1]["place"]
+		temp2 = p[2]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,0,p[0]["zero"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,0,p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["label",p[0]["after"]]]	
 	generate_output(p.slice)
+
+
+
+
+def p_tempLogicalAndExpression(p):
+	'''tempLogicalAndExpression : logicalAndOperator bitWiseOrExpression
+								| logicalAndOperator bitWiseOrExpression tempLogicalAndExpression'''
+	p[0]={}
+	p[0]["code"] = []
+	if len(p) == 3:
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+	else:
+		p[0]["type"] = p[2]["type"]
+		p[0]["code"] = p[2]["code"] + p[3]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["zero"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[2]["place"]
+		temp2 = p[3]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,0,p[0]["zero"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,0,p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["label",p[0]["after"]]]	
+	generate_output(p.slice)
+
 
 
 def p_tempLogicalAndExpressionNoIn(p):
 	'''tempLogicalAndExpressionNoIn : logicalAndOperator bitWiseOrExpressionNoIn
 								| logicalAndOperator bitWiseOrExpressionNoIn tempLogicalAndExpressionNoIn'''
+	p[0]={}
+	p[0]["code"] = []
+	if len(p) == 3:
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+	else:
+		p[0]["type"] = p[2]["type"]
+		p[0]["code"] = p[2]["code"] + p[3]["code"]
+		p[0]["place"] = tac.newTemp()
+		p[0]["zero"] = tac.newLabel()
+		p[0]["after"] = tac.newLabel()
+		temp1 = p[2]["place"]
+		temp2 = p[3]["place"]
+		p[0]["code"] += [["ifgoto","bne",temp1,0,p[0]["zero"]]]
+		p[0]["code"] += [["ifgoto","bne",temp2,0,p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],1]]
+		p[0]["code"] += [["goto",p[0]["after"]]]	
+		p[0]["code"] += [["label",p[0]["zero"]]]
+		p[0]["code"] += [["=",p[0]["place"],0]]
+		p[0]["code"] += [["label",p[0]["after"]]]	
 	generate_output(p.slice)
 
 
 def p_logicalAndOperator(p):
 	'''logicalAndOperator : OP_AND'''
+	p[0]={}
 	generate_output(p.slice)
 
 
 def p_bitWiseOrExpression(p):
-	'''bitWiseOrExpression : bitWiseXorExpression
- 							| bitWiseXorExpression tempBitWiseOrExpression'''
+	'''bitWiseOrExpression : bitWiseXorExpression '''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+ 							# | bitWiseXorExpression tempBitWiseOrExpression'''
 	generate_output(p.slice)
 
 
 def p_bitWiseOrExpressionWithoutFunc(p):
-	'''bitWiseOrExpressionWithoutFunc : bitWiseXorExpressionWithoutFunc
- 							| bitWiseXorExpressionWithoutFunc tempBitWiseOrExpression'''
+	'''bitWiseOrExpressionWithoutFunc : bitWiseXorExpressionWithoutFunc'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+	# p[0]["type"] = p[1]["type"]
+ 							# | bitWiseXorExpressionWithoutFunc tempBitWiseOrExpression'''
 	generate_output(p.slice)
 
 
-def p_tempBitWiseOrExpression(p):
-	'''tempBitWiseOrExpression : bitWiseOrOperator bitWiseXorExpression
-								| bitWiseOrOperator bitWiseXorExpression tempBitWiseOrExpression'''
-	generate_output(p.slice)
+# def p_tempBitWiseOrExpression(p):
+# 	'''tempBitWiseOrExpression : bitWiseOrOperator bitWiseXorExpression
+# 								| bitWiseOrOperator bitWiseXorExpression tempBitWiseOrExpression'''
+	# generate_output(p.slice)
 
 
 def p_bitWiseOrExpressionNoIn(p):
-	'''bitWiseOrExpressionNoIn : bitWiseXorExpressionNoIn
-							| bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
+	'''bitWiseOrExpressionNoIn : bitWiseXorExpressionNoIn'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
 	generate_output(p.slice)
 
 
-def p_tempBitWiseOrExpressionNoIn(p):
-	'''tempBitWiseOrExpressionNoIn : bitWiseOrOperator bitWiseXorExpressionNoIn
-								| bitWiseOrOperator bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
-	generate_output(p.slice)
+# def p_tempBitWiseOrExpressionNoIn(p):
+# 	'''tempBitWiseOrExpressionNoIn : bitWiseOrOperator bitWiseXorExpressionNoIn
+# 								| bitWiseOrOperator bitWiseXorExpressionNoIn tempBitWiseOrExpressionNoIn'''
+	# generate_output(p.slice)
 
 
-def p_bitWiseOrOperator(p):
-	'''bitWiseOrOperator : BITWISE_OR'''
-	generate_output(p.slice)
+# def p_bitWiseOrOperator(p):
+# 	'''bitWiseOrOperator : BITWISE_OR'''
+	# generate_output(p.slice)
 
 
 def p_bitWiseXorExpression(p):
-	'''bitWiseXorExpression : bitWiseAndExpression
-							| bitWiseAndExpression tempBitWiseXorExpression'''
+	'''bitWiseXorExpression : bitWiseAndExpression'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | bitWiseAndExpression tempBitWiseXorExpression'''
 	generate_output(p.slice)
 
 
 def p_bitWiseXorExpressionWithoutFunc(p):
-	'''bitWiseXorExpressionWithoutFunc : bitWiseAndExpressionWithoutFunc
-							| bitWiseAndExpressionWithoutFunc tempBitWiseXorExpression'''
+	'''bitWiseXorExpressionWithoutFunc : bitWiseAndExpressionWithoutFunc'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | bitWiseAndExpressionWithoutFunc tempBitWiseXorExpression'''
 	generate_output(p.slice)
 
 
-def p_tempBitWiseXorExpression(p):
-	'''tempBitWiseXorExpression : bitWiseXorOperator bitWiseAndExpression
-								| bitWiseXorOperator bitWiseAndExpression tempBitWiseXorExpression'''
-	generate_output(p.slice)
+# def p_tempBitWiseXorExpression(p):
+# 	'''tempBitWiseXorExpression : bitWiseXorOperator bitWiseAndExpression
+# 								| bitWiseXorOperator bitWiseAndExpression tempBitWiseXorExpression'''
+	# generate_output(p.slice)
 
 
 def p_bitWiseXorExpressionNoIn(p):
-	'''bitWiseXorExpressionNoIn : bitWiseAndExpressionNoIn
-							| bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
+	'''bitWiseXorExpressionNoIn : bitWiseAndExpressionNoIn'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
 	generate_output(p.slice)
 
 
 
 def p_tempBitWiseXorExpressionNoIn(p):
-	'''tempBitWiseXorExpressionNoIn : bitWiseXorOperator bitWiseAndExpressionNoIn
-								| bitWiseXorOperator bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
+	'''tempBitWiseXorExpressionNoIn : bitWiseXorOperator bitWiseAndExpressionNoIn'''
+	p[0] = {}
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+								# | bitWiseXorOperator bitWiseAndExpressionNoIn tempBitWiseXorExpressionNoIn'''
 	generate_output(p.slice)
 
 
@@ -1091,54 +1336,45 @@ def p_bitWiseXorOperator(p):
 
 
 def p_bitWiseAndExpression(p):
-	'''bitWiseAndExpression : equalityExpression
-							| equalityExpression tempBitWiseAndExpression'''
+	'''bitWiseAndExpression : equalityExpression'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | equalityExpression tempBitWiseAndExpression'''
 	generate_output(p.slice)
 
 
 def p_bitWiseAndExpressionWithoutFunc(p):
-	'''bitWiseAndExpressionWithoutFunc : equalityExpressionWithoutFunc
-							| equalityExpressionWithoutFunc tempBitWiseAndExpression'''
+	'''bitWiseAndExpressionWithoutFunc : equalityExpressionWithoutFunc'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | equalityExpressionWithoutFunc tempBitWiseAndExpression'''
 	generate_output(p.slice)
 
 
-def p_tempBitWiseAndExpression(p):
-	'''tempBitWiseAndExpression : bitWiseAndOperator equalityExpression
-								| bitWiseAndOperator equalityExpression tempBitWiseAndExpression'''
-	generate_output(p.slice)
+# def p_tempBitWiseAndExpression(p):
+# 	'''tempBitWiseAndExpression : bitWiseAndOperator equalityExpression
+# 								| bitWiseAndOperator equalityExpression tempBitWiseAndExpression'''
+	# generate_output(p.slice)
 
 
 def p_bitWiseAndExpressionNoIn(p):
-	'''bitWiseAndExpressionNoIn : equalityExpressionNoIn
-							| equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
+	'''bitWiseAndExpressionNoIn : equalityExpressionNoIn'''
 	p[0] = {}
-	if len(p) == 2:
-		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
-		p[0]["type"] = p[1]["type"]
-	else:
-		pass
+	p[0]["code"] = p[1]["code"]
+	p[0]["type"] = p[1]["type"]
+	p[0]["place"] = p[1]["place"]
+							# | equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
 	generate_output(p.slice)
 
 
-def p_tempBitWiseAndExpressionNoIn(p):
-	'''tempBitWiseAndExpressionNoIn : bitWiseAndOperator equalityExpressionNoIn
-								| bitWiseAndOperator equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
-	generate_output(p.slice)
+# def p_tempBitWiseAndExpressionNoIn(p):
+# 	'''tempBitWiseAndExpressionNoIn : bitWiseAndOperator equalityExpressionNoIn
+# 								# | bitWiseAndOperator equalityExpressionNoIn tempBitWiseAndExpressionNoIn'''
+# 	generate_output(p.slice)
 
 
 def p_bitWiseAndOperator(p):
@@ -1755,7 +1991,23 @@ def p_unaryExpression(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["code"] = p[2]["code"]
+		p[0]["type"] = p[2]["type"]
+		if p[1] == "++":
+			p[0]["code"] += [["+",p[2]["place"],p[2]["place"],1]]
+			p[0]["place"] = p[2]["place"]
+		elif p[1] == "--":
+			p[0]["code"] += [["-",p[2]["place"],p[2]["place"],1]]
+			p[0]["place"] = p[2]["place"]		
+		elif p[1] == "+":
+			pass
+		elif p[1] == "-":
+			pass
+		elif p[1] == "~":
+			pass
+		elif p[1] == "!":
+			pass
+
 	generate_output(p.slice)
 
 
@@ -1776,7 +2028,23 @@ def p_unaryExpressionWithoutFunc(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["code"] = p[2]["code"]
+		p[0]["type"] = p[2]["type"]
+		if p[1] == "++":
+			p[0]["code"] += [["+",p[2]["place"],p[2]["place"],1]]
+			p[0]["place"] = p[2]["place"]
+		elif p[1] == "--":
+			p[0]["code"] += [["-",p[2]["place"],p[2]["place"],1]]
+			p[0]["place"] = p[2]["place"]		
+		elif p[1] == "+":
+			pass
+		elif p[1] == "-":
+			pass
+		elif p[1] == "~":
+			pass
+		elif p[1] == "!":
+			pass
+
 
 	generate_output(p.slice)
 
@@ -1791,7 +2059,15 @@ def p_postFixExpression(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["code"] = p[1]["code"]
+		p[0]["type"] = p[1]["type"]
+		p[0]["place"] = tac.newTemp()
+		if p[2] == "++":
+			p[0]["code"] += [["=",p[0]["place"],p[1]["place"]]]
+			p[0]["code"] += [["+",p[1]["place"],p[1]["place"],1]]
+		else:
+			p[0]["code"] += [["=",p[0]["place"],p[1]["place"]]]
+			p[0]["code"] += [["-",p[1]["place"],p[1]["place"],1]]
 
 	generate_output(p.slice)
 
@@ -1806,7 +2082,15 @@ def p_postFixExpressionWithoutFunc(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["code"] = p[1]["code"]
+		p[0]["type"] = p[1]["type"]
+		p[0]["place"] = tac.newTemp()
+		if p[2] == "++":
+			p[0]["code"] += [["=",p[0]["place"],p[1]["place"]]]
+			p[0]["code"] += [["+",p[1]["place"],p[1]["place"],1]]
+		else:
+			p[0]["code"] += [["=",p[0]["place"],p[1]["place"]]]
+			p[0]["code"] += [["-",p[1]["place"],p[1]["place"],1]]
 
 	generate_output(p.slice)
 
@@ -1920,7 +2204,9 @@ def p_expression(p):
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
 
 	generate_output(p.slice)
 
@@ -1929,7 +2215,7 @@ def p_expressionWithoutFunc(p):
 					| expressionWithoutFunc COMMA assignmentExpression '''
 	p[0] = {}
 	p[0]["code"] = []
-	print "expression without func",p[1]
+	# print "expression without func",p[1]
 	if len(p) == 2:
 		p[0]["code"] = p[1]["code"]
 		p[0]["place"] = p[1]["place"]
@@ -1941,11 +2227,33 @@ def p_expressionWithoutFunc(p):
 def p_expressionNoIn(p):
 	'''expressionNoIn : assignmentExpressionNoIn
 					| assignmentExpressionNoIn tempExpressionNoIn'''
+
+	p[0] = {}
+	if len(p) == 2:
+		p[0]["code"] = p[1]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+	else:
+		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+
 	generate_output(p.slice)
 
 def p_tempExpressionNoIn(p):
 	'''tempExpressionNoIn : COMMA assignmentExpressionNoIn
 						| COMMA assignmentExpressionNoIn tempExpressionNoIn'''
+	
+	p[0] = {}
+	if len(p) == 2:
+		p[0]["code"] = p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+	else:
+		p[0]["code"] = p[3]["code"] + p[2]["code"]
+		p[0]["place"] = p[2]["place"]
+		p[0]["type"] = p[2]["type"]
+
 	generate_output(p.slice)
 
 def p_primaryExpression(p):
