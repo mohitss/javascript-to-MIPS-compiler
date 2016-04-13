@@ -61,7 +61,12 @@ def p_start(p):
 	f = open('output.s','w')
 	for codes in p[0]["code"]:
 		print codes
-		write = str(codes[0])+","+str(codes[1])
+		write = str(codes[0])
+		try:
+			if codes[1] != "":
+				write+=","+str(codes[1])
+		except:
+			pass
 		try:
 			if codes[2] != "":
 				write+=","+str(codes[2])
@@ -105,16 +110,43 @@ def p_sourceElement(p):
 def p_functionDeclaration(p):
 	'''functionDeclaration : FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN functionBody
 						| FUNCTION IDENTIFIER LPAREN RPAREN functionBody '''
+	p[0]={}
+	label = tac.newLabel()
+	p[0]["type"] = "function"
+	p[0]["code"] = [["goto",p[2]+"End"],["label",p[2]+"Start"]]
+	if(len(p)==6):
+		symbTab.insert(p[2],"function") 
+		p[0]["code"] += p[5]["code"]
+	if(len(p)==7):
+		symbTab.insert(p[2],"function",param=p[4]["place"]) 
+		p[0]["code"] += p[6]["code"]
+		ident = symbTab.lookup(p[2])		
+
+	p[0]["code"] += [["ret"]]
+	p[0]["code"] += [["label",p[2]+"End"]]
+
 	generate_output(p.slice)
 
 def p_formalParameterList(p):
 	'''formalParameterList : IDENTIFIER
 							| formalParameterList COMMA IDENTIFIER'''
+	p[0]={}
+	p[0]["place"]=[]
+	if len(p)==2:
+		p[0]["place"] = [p[1]]
+	else:
+		p[0]["place"] = p[1]["place"]+[p[3]]
+	print p[0]
 	generate_output(p.slice)
 
 def p_functionBody(p):
 	'''functionBody : OPEN_BRACE sourceElements CLOSE_BRACE
 					| OPEN_BRACE CLOSE_BRACE '''
+	p[0] = {}
+	if(len(p)==4):
+		p[0]["code"]= p[2]["code"]
+	else:
+		p[0]["code"] = []
 	generate_output(p.slice)
 
 
@@ -263,8 +295,25 @@ def p_emptyStatement(p):
 def p_expressionStatement(p):
 	'''expressionStatement : expressionWithoutFunc SEMI_COLON'''
 	p[0] = {}
-	p[0] = p[1]
-	print "exp 0",p[1]
+	if p[1]["type"]=="function":
+		p[0]["place"] = p[1]["place"]
+		p[0]["code"] = p[1]["code"]
+		function = symbTab.lookup(p[1]["place"][0])
+		if function == None:
+			assert(0)
+		print "expr"
+		print ((function[0]["param"]))
+		print (p[1]["place"])
+		if(len(function[0]["param"])!=(len(p[1]["place"])-1)):
+			print "Unmatched params on the function " + p[1]["place"][0]
+			assert(0)
+		for i in range(0,len(function[0]["param"])):
+			p[0]["code"]+=[["=",function[0]["param"][i],p[1]["place"][i+1],"" ]]
+
+		p[0]["code"] += [["jal",p[1]["place"][0]+"Start",""]]
+	else:
+		p[0]=p[1]	
+		print "exp 0",p[1]
 	generate_output(p.slice)
 
 
@@ -1922,6 +1971,10 @@ def p_primaryExpression(p):
 					ident = symbTab.lookup(value)
 					if ident == None:
 						raise_error("Error: Variable '"+value+"' used before assignment")
+					elif ident[0]["identifierType"] == "function":						
+						p[0]["type"] = 'function'
+						p[0]["code"]=[]
+						p[0]["place"]=value
 					else:
 						p[0]["code"] = []
 						p[0]["type"] = ident[0]["identifierType"]
@@ -1960,8 +2013,14 @@ def p_primaryExpressionWithoutFunc(p):
 				type = lists.type
 				if type == "IDENTIFIER":
 					ident = symbTab.lookup(value)
+					# print "here1\n"
+					# print ident[0]["identifierType"]
 					if ident == None:
 						raise_error("Error: Variable '"+value+"' used before assignment")
+					elif ident[0]["identifierType"] == "function":
+						p[0]["type"] = 'function'
+						p[0]["code"]=[]
+						p[0]["place"]=value
 					else:
 						p[0]["code"] = []
 						p[0]["type"] = ident[0]["identifierType"]
@@ -2022,6 +2081,14 @@ def p_arrayLiteral(p):
 					| LSQUARE elementList RSQUARE
 					| LSQUARE elementList COMMA elison RSQUARE
 					| LSQUARE elementList COMMA RSQUARE'''
+	p[0] = {}
+	p[0]["code"] = []
+	p[0]["type"] = "array"
+	p[0]["place"] = []
+	if len(p)>3:
+		p[0]["place"] = p[2]["place"]
+		p[0]["place"] = p[2]["place"]
+
 	generate_output(p.slice)
 
 def p_elementList(p):
@@ -2029,11 +2096,32 @@ def p_elementList(p):
 					| assignmentExpression
 					| elementList COMMA elison assignmentExpression
 					| elementList COMMA assignmentExpression'''
+	p[0]={}
+	p[0]["code"]=[]
+	if len(p)==3:
+		p[0]["type"] = p[2]["type"]
+		p[0]["place"] = [p[2]["place"]]
+	elif len(p)==2:
+		p[0]["place"] = [p[1]["place"]]
+		p[0]["type"] = p[1]["type"]
+	elif len(p)==4:
+		if(p[1]["type"]!= p[3]["type"]):
+			print("Type mismatch in the arrayLiteral")
+		p[0]["type"] = p[1]["type"]
+		p[0]["place"] = p[1]["place"]+[p[3]["place"]] 
+	elif len(p)==5:
+		if(p[1]["type"]!= p[4]["type"]):
+			print("Type mismatch in the arrayLiteral")
+		p[0]["type"] = p[1]["type"]
+		p[0]["place"] = p[1]["place"]+[p[4]["place"]]
 	generate_output(p.slice)
 
 def p_elison(p):
 	'''elison : COMMA
 				| elison COMMA'''
+	p[0]={}
+	p[0]["code"] = []
+	p[0]["place"] = None
 	generate_output(p.slice)
 
 def p_objectLiteral(p):
@@ -2062,6 +2150,7 @@ def p_functionExpression(p):
 							| FUNCTION IDENTIFIER LPAREN RPAREN functionBody
 							| FUNCTION IDENTIFIER LPAREN formalParameterList RPAREN functionBody
 							| FUNCTION LPAREN formalParameterList RPAREN functionBody'''
+	p[0]={}
 	generate_output(p.slice)
 
 def p_arguements(p):
@@ -2070,6 +2159,7 @@ def p_arguements(p):
 	p[0] = {}
 	if len(p) == 3:
 		p[0]["code"] = []
+		p[0]["place"]=[]
 	else:
 		p[0]["code"] = p[2]["code"]
 		p[0]["place"] = p[2]["place"]
@@ -2082,10 +2172,12 @@ def p_arguementList(p):
 	p[0] = {}
 	if len(p) == 2:
 		p[0]["code"] = p[1]["code"]
-		p[0]["place"] = p[1]["place"]
+		p[0]["place"] = [p[1]["place"]]
 		p[0]["type"] = p[1]["type"]
 	else:
-		pass
+		p[0]["code"] = p[1]["code"] + p[3]["code"]
+		p[0]["place"] = [p[1]["place"]]+p[3]["place"]
+		p[0]["type"] = p[1]["type"]
 	generate_output(p.slice)
 
 def p_callExpression(p):
@@ -2096,6 +2188,9 @@ def p_callExpression(p):
 	p[0] = {}
 	if len(p) == 3:
 		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = p[1]["place"]
+		p[0]["type"] = p[1]["type"]
+		p[0]["list"] = p[2]["place"]
 		if p[1]["place"] == "print":
 			p[0]["code"] += [["print_intv",p[2]["place"]]]		
 			p[0]["place"] = p[1]["place"]
@@ -2110,6 +2205,14 @@ def p_callExpressionWithoutFunc(p):
 	p[0] = {}
 	if len(p) == 3:
 		p[0]["code"] = p[1]["code"] + p[2]["code"]
+		p[0]["place"] = [p[1]["place"]]+p[2]["place"]
+		p[0]["type"] = p[1]["type"]
+		# # p[0]["list"] = p[2]["place"]
+		# print "\n"
+		# print p[1] 
+		# print "\n"
+		# print p[2]
+		# assert(0)
 		if p[1]["place"] == "print":
 			p[0]["code"] += [["print_intv",p[2]["place"]]]
 			p[0]["place"] = p[1]["place"]
