@@ -384,7 +384,7 @@ def p_expressionStatement(p):
 		for i in range(0,len(function[0]["param"])):
 			p[0]["code"]+=[["=",function[0]["param"][i],p[1]["place"][i+1],"" ]]
 
-		p[0]["code"] += [["jal",p[1]["place"][0]+"Start",""]]
+		p[0]["code"] += [["call",p[1]["place"][0]+"Start",""]]
 	else:
 		p[0]=p[1]	
 		print "exp 0",p[1]
@@ -2177,6 +2177,19 @@ def p_memberExpression(p):
 		p[0]["code"] = p[1]["code"]
 		p[0]["place"] = p[1]["place"]
 		p[0]["type"] = p[1]["type"]
+	elif len(p) == 5:
+		p[0]["code"] = p[1]["code"]
+		p[0]["type"] = p[1]["type"]
+		print(p[1])
+		array = symbTab.lookup(p[1]["place"])
+		print array
+		pass
+		if array==None or array[0]["type"]!="array":
+			print "No such array exists"
+			assert(0)
+		else:
+			p[0]["place"] = newTemp();
+			p[0]["place"] = array[0]
 	else:
 		p[0]["code"] = []
 		p[0]["type"] = "undefined"
@@ -2305,6 +2318,10 @@ def p_primaryExpression(p):
 						p[0]["code"] = []
 						p[0]["type"] = ident[0]["identifierType"]
 						p[0]["place"] = value
+				elif type == "array":
+						p[0]["code"]=[]
+						p[0]["place"]=p[1]["place"]
+						p[0]["type"] = p[1]["type"]
 				else:
 					pass	
 			else:
@@ -2351,8 +2368,12 @@ def p_primaryExpressionWithoutFunc(p):
 						p[0]["code"] = []
 						p[0]["type"] = ident[0]["identifierType"]
 						p[0]["place"] = value
+				elif type == "array":
+						p[0]["code"]=[]
+						p[0]["place"]=p[1]["place"]
+						p[0]["type"] = p[1]["type"]
 				else:
-					pass	
+					pass
 			else:
 				p[0]["code"] = p[1]["code"]
 				p[0]["place"] = p[1]["place"]
